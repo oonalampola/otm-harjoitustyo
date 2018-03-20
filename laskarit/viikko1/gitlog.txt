@@ -38,6 +38,8 @@ Date:   Tue Mar 20 16:43:46 2018 +0200
  eka.txt      | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  tiedosto.txt | 72 ------------------------------------------------------------
  2 files changed, 72 insertions(+), 72 deletions(-)
+ 
+ Tämä on muutos2
 
 commit 646167a73cd6359bd295bf104028a9a7cd5f4e7f
 Author: Oona <oona.lampola@helsinki.fi>
