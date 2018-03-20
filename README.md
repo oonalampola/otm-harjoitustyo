@@ -1,13 +1,11 @@
 
-<h1>jotain tekstiä</h1>
+<h1>OTM-harjoitustyö</h1>
 
+<h2>Tehtävät</h2>
 
->lainaus
-
-**Tämä on lihavoitu**
-
-_tämä on kursivoitu_
+<h3>Viikko1</h3>
 
 
 [Komentorivi.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
 [gitlog.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
