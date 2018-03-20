@@ -1,3 +1,4 @@
+
 <h1>jotain tekstiä</h1>
 
 
@@ -7,5 +8,6 @@
 
 _tämä on kursivoitu_
 
-http://github.com - automatic!
-[GitHub](http://github.com)
+
+[Komentorivi.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+[gitlog.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
