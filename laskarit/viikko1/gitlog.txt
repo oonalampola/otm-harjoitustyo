@@ -1,0 +1,115 @@
+commit c49e28f138253a0f47a1640feda7b89f2c7b6331
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 17:04:35 2018 +0200
+
+    ookoo
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 5cd4233f96349ad3427c8b58a0f82daa1f7a06ae
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 17:00:43 2018 +0200
+
+    uusi hakemisto
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit da169922a527cba694510c957326e8a0e4e69f93
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:47:36 2018 +0200
+
+    lsiäyksiä ja poistoja ja git add -p
+
+ eka.txt    | 10 +---------
+ kolmas.txt |  3 ++-
+ 2 files changed, 3 insertions(+), 10 deletions(-)
+
+commit 2885955921b6ed8c062b3bdb77c788a21cbcfd77
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:43:46 2018 +0200
+
+    muutetaan tiedosto.txt nimeksi eka.txt
+
+ eka.txt      | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ tiedosto.txt | 72 ------------------------------------------------------------
+ 2 files changed, 72 insertions(+), 72 deletions(-)
+
+commit 646167a73cd6359bd295bf104028a9a7cd5f4e7f
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:41:57 2018 +0200
+
+    poistetaan toinen.tzt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 936e3d5d64bf609cb8ad77651aa4708e3bb18efa
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:39:05 2018 +0200
+
+    poistetaan osa ja lisätään lisää tekstiä
+
+ tiedosto.txt | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
+
+commit 06f9dc33e8f2b188b457401e17d32ec0229d0cb4
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:37:33 2018 +0200
+
+    kopioin paljon tekstiä
+
+ tiedosto.txt | 64 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 63 insertions(+), 1 deletion(-)
+
+commit fcb8e2ffaa6d0332a1ff74f52b34631b83e1c7e4
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:31:50 2018 +0200
+
+    lisätään uusi hakemisto
+
+ stuff/kappas | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit de24a16b0b1c11baa1b4461a3a20eb74428797af
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:30:05 2018 +0200
+
+    tokaa ja kolmatta muokattu
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 1b34014a3730460000216198a808a6360c47ffcc
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:28:49 2018 +0200
+
+    kolmas
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 72c7ae30cbc890de14bf1b67c97dda847657c1e9
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:25:22 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 2 ++
+ toinen.txt   | 0
+ 2 files changed, 2 insertions(+)
+
+commit 5a00e0853f10df480e9058f592deb42320904573
+Author: Oona <oona.lampola@helsinki.fi>
+Date:   Tue Mar 20 16:20:42 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
