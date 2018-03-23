@@ -109,16 +109,17 @@ public class MaksukorttiTest {
         assertEquals("Kortilla on rahaa 0.0 euroa", kortti.toString());
 
     }
+
     @Test
-    public void maukkaannLounaanVoiOstaaKunSaldoMaukkaanVerran(){
-        
+    public void maukkaannLounaanVoiOstaaKunSaldoMaukkaanVerran() {
+
         kortti.syoMaukkaasti();
         kortti.syoMaukkaasti();
         //saldo 2.0 e
         kortti.lataaRahaa(2);
         //saldo 4.0 e
         kortti.syoMaukkaasti();
-        
+
         assertEquals("Kortilla on rahaa 0.0 euroa", kortti.toString());
     }
 
