@@ -24,29 +24,10 @@ public class KassapaateTest {
     public KassapaateTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() {
         kassa = new Kassapaate();
         kortti = new Maksukortti(1000);
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    @Test
-    public void hello() {
     }
 
     @Test
@@ -106,7 +87,7 @@ public class KassapaateTest {
         int ladattavaSumma = 1000;
         assertTrue(ladattavaSumma >= 0);
         kassa.lataaRahaaKortille(kortti, ladattavaSumma);
-        
+
         assertTrue(kortti.saldo() == 2000);
         assertTrue(kassa.kassassaRahaa() == 101000);
         kassa.lataaRahaaKortille(kortti, -100);
