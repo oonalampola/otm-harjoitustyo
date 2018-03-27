@@ -2,54 +2,41 @@
 
 <h2>Sovelluksen tarkoitus</h2>
 
-Sovelluksen avulla käyttäjä voi pitää kirjaa 
-tuloistaan ja menoistaan kulutuksen eri 
-osa-alueilla. Sovellukseen voi luoda erillisiä 
-käyttäjätunnuksia, joihin kukin voi lisätä omia 
-tietojaan.
+Sovelluksen avulla käyttäjä voi pitää kirjaa tuloistaan ja menoistaan kulutuksen eri osa-alueilla. Sovellukseen voi luoda erillisiä käyttäjätunnuksia, joihin kukin voi lisätä omia tietojaan.
 
 <h2>Käyttäjät</h2>
-Sovelluksessa on yhdenlaisia käyttäjiä, joiden 
-käyttöoikeudet rajoittuvat heidän omien tietojensa 
-muokkaamiseen.
+Sovelluksessa on yhdenlaisia käyttäjiä, joiden käyttöoikeudet rajoittuvat heidän omien tietojensa muokkaamiseen.
 
 <h2>Perusversion tarjoama toiminnallisuus</h2>
 
 <h3>Ennen kirjautumista</h3>
 
-*• Käyttäjä voi luoda käyttäjätunnuksen
-  *◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
-  olemassa olevista käyttäjätunnuksista ja vähintään 5 
-  merkkiä pitkä
+- Käyttäjä voi luoda käyttäjätunnuksen
+  - Käyttäjätunnuksen tulee olla merkkijono, poiketa olemassa olevista käyttäjätunnuksista ja vähintään 5 merkkiä pitkä
 
-*• Käyttäjä voi kirjautua sisään
-  *◦ Kirjautuminen edellyttää aiemmin luotua ja 
+- Käyttäjä voi kirjautua sisään
+  - Kirjautuminen edellyttää aiemmin luotua ja 
   olemassa olevaa käyttäjätunnusta
-  *◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
+  - Mikäli käyttäjätunnusta ei ole, kehotetaan 
   kirjautujaa yrittämään uudelleen tai luomaan uusi 
   käyttäjätunnus
 
 <h3>Kirjautumisen jälkeen</h3>
 
-*• Käyttäjä näkee omat tulonsa ja menonsa sekä 
-käytettävissään olevan rahamäärän
-*• Käyttäjä voi lisätä tietoihinsa tuloja, kuten 
-palkan tai opintotuen
-*• Käyttäjä voi lisätä menoja, jotka voi asettaa 
-tiettyyn kategoriaan
-*• Käyttäjä voi asettaa itselleen kuukausibudjetin
-*• Käyttäjä voi tarkastella tietoja 
-kalenterikuukausittain
+- Käyttäjä näkee omat tulonsa ja menonsa sekä käytettävissään olevan rahamäärän
+- Käyttäjä voi lisätä tietoihinsa tuloja, kuten palkan tai opintotuen
+- Käyttäjä voi lisätä menoja, jotka voi asettaa tiettyyn kategoriaan 
+- Käyttäjä voi asettaa itselleen kuukausibudjetin
+- Käyttäjä voi tarkastella tietoja kalenterikuukausittain
 
 <h2>Jatkokehitysideoita</h2>
 
 Ideoita sovelluksen jatkokehitykseen
-• Graafinen esitys kuukauden menojen jakautumisesta
-• Spesifimpien ajanjaksojen valitseminen 
-tarkasteltavaksi
-• Tallennettujen tietojen muokkaaminen jälkikäteen
-• Tallennettujen tietojen poistaminen
-• Käyttäjätilin poistaminen tietoineen
-• Yhteiskäyttäjien luominen esim. samassa taloudessa 
-asuville yhteisen talouden budjetointia varten
+
+- Graafinen esitys kuukauden menojen jakautumisesta
+- Spesifimpien ajanjaksojen valitseminen tarkasteltavaksi
+- Tallennettujen tietojen muokkaaminen jälkikäteen
+- Tallennettujen tietojen poistaminen
+- Käyttäjätilin poistaminen tietoineen
+- Yhteiskäyttäjien luominen esim. samassa taloudessa asuville yhteisen talouden budjetointia varten
 
