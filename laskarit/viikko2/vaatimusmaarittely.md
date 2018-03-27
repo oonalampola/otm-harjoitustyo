@@ -29,7 +29,7 @@ olemassa olevaa käyttäjätunnusta
 kirjautujaa yrittämään uudelleen tai luomaan uusi 
 käyttäjätunnus
 
-<h3>Kirjautumisen jälkeen
+<h3>Kirjautumisen jälkeen</h3>
 
 • Käyttäjä näkee omat tulonsa ja menonsa sekä 
 käytettävissään olevan rahamäärän
