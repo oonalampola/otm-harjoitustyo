@@ -18,16 +18,16 @@ muokkaamiseen.
 <h3>Ennen kirjautumista</h3>
 
 • Käyttäjä voi luoda käyttäjätunnuksen
-◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
-olemassa olevista käyttäjätunnuksista ja vähintään 5 
-merkkiä pitkä
+  ◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
+  olemassa olevista käyttäjätunnuksista ja vähintään 5 
+  merkkiä pitkä
 
 • Käyttäjä voi kirjautua sisään
-◦ Kirjautuminen edellyttää aiemmin luotua ja 
-olemassa olevaa käyttäjätunnusta
-◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
-kirjautujaa yrittämään uudelleen tai luomaan uusi 
-käyttäjätunnus
+  ◦ Kirjautuminen edellyttää aiemmin luotua ja 
+  olemassa olevaa käyttäjätunnusta
+  ◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
+  kirjautujaa yrittämään uudelleen tai luomaan uusi 
+  käyttäjätunnus
 
 <h3>Kirjautumisen jälkeen</h3>
 
