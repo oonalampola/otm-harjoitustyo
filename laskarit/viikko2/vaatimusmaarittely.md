@@ -1,28 +1,36 @@
 <h1>Vaatimusmäärittely</h1>
--------------
+
 <h2>Sovelluksen tarkoitus</h2>
+
 Sovelluksen avulla käyttäjä voi pitää kirjaa 
 tuloistaan ja menoistaan kulutuksen eri 
 osa-alueilla. Sovellukseen voi luoda erillisiä 
 käyttäjätunnuksia, joihin kukin voi lisätä omia 
 tietojaan.
+
 <h2>Käyttäjät</h2>
 Sovelluksessa on yhdenlaisia käyttäjiä, joiden 
 käyttöoikeudet rajoittuvat heidän omien tietojensa 
 muokkaamiseen.
+
 <h2>Perusversion tarjoama toiminnallisuus</h2>
+
 <h3>Ennen kirjautumista
+
 • Käyttäjä voi luoda käyttäjätunnuksen
 ◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
 olemassa olevista käyttäjätunnuksista ja vähintään 5 
 merkkiä pitkä
+
 • Käyttäjä voi kirjautua sisään
 ◦ Kirjautuminen edellyttää aiemmin luotua ja 
 olemassa olevaa käyttäjätunnusta
 ◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
 kirjautujaa yrittämään uudelleen tai luomaan uusi 
 käyttäjätunnus
+
 <h3>Kirjautumisen jälkeen
+
 • Käyttäjä näkee omat tulonsa ja menonsa sekä 
 käytettävissään olevan rahamäärän
 • Käyttäjä voi lisätä tietoihinsa tuloja, kuten 
@@ -32,7 +40,9 @@ tiettyyn kategoriaan
 • Käyttäjä voi asettaa itselleen kuukausibudjetin
 • Käyttäjä voi tarkastella tietoja 
 kalenterikuukausittain
+
 <h2>Jatkokehitysideoita</h2>
+
 Ideoita sovelluksen jatkokehitykseen
 • Graafinen esitys kuukauden menojen jakautumisesta
 • Spesifimpien ajanjaksojen valitseminen 
