@@ -17,28 +17,28 @@ muokkaamiseen.
 
 <h3>Ennen kirjautumista</h3>
 
-• Käyttäjä voi luoda käyttäjätunnuksen
-  ◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
+*• Käyttäjä voi luoda käyttäjätunnuksen
+  *◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
   olemassa olevista käyttäjätunnuksista ja vähintään 5 
   merkkiä pitkä
 
-• Käyttäjä voi kirjautua sisään
-  ◦ Kirjautuminen edellyttää aiemmin luotua ja 
+*• Käyttäjä voi kirjautua sisään
+  *◦ Kirjautuminen edellyttää aiemmin luotua ja 
   olemassa olevaa käyttäjätunnusta
-  ◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
+  *◦ Mikäli käyttäjätunnusta ei ole, kehotetaan 
   kirjautujaa yrittämään uudelleen tai luomaan uusi 
   käyttäjätunnus
 
 <h3>Kirjautumisen jälkeen</h3>
 
-• Käyttäjä näkee omat tulonsa ja menonsa sekä 
+*• Käyttäjä näkee omat tulonsa ja menonsa sekä 
 käytettävissään olevan rahamäärän
-• Käyttäjä voi lisätä tietoihinsa tuloja, kuten 
+*• Käyttäjä voi lisätä tietoihinsa tuloja, kuten 
 palkan tai opintotuen
-• Käyttäjä voi lisätä menoja, jotka voi asettaa 
+*• Käyttäjä voi lisätä menoja, jotka voi asettaa 
 tiettyyn kategoriaan
-• Käyttäjä voi asettaa itselleen kuukausibudjetin
-• Käyttäjä voi tarkastella tietoja 
+*• Käyttäjä voi asettaa itselleen kuukausibudjetin
+*• Käyttäjä voi tarkastella tietoja 
 kalenterikuukausittain
 
 <h2>Jatkokehitysideoita</h2>
