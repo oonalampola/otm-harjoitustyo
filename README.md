@@ -10,4 +10,6 @@
 
 [gitlog.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
+<h3>Viikko2</h3>
 
+[Vaatimusmäärittely](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
