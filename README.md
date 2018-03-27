@@ -13,3 +13,5 @@
 <h3>Viikko2</h3>
 
 [Vaatimusmäärittely](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+
+[Työaikakirjanpito](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
