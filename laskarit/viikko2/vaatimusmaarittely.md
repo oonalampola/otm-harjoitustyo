@@ -15,7 +15,7 @@ muokkaamiseen.
 
 <h2>Perusversion tarjoama toiminnallisuus</h2>
 
-<h3>Ennen kirjautumista
+<h3>Ennen kirjautumista</h3>
 
 • Käyttäjä voi luoda käyttäjätunnuksen
 ◦ Käyttäjätunnuksen tulee olla merkkijono, poiketa 
