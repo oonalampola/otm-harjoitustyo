@@ -10,4 +10,4 @@
 
 [gitlog.txt](https://github.com/oonalampola/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-Tämä on muutos
+
