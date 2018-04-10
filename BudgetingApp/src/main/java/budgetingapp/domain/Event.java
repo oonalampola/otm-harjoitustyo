@@ -7,7 +7,7 @@ package budgetingapp.domain;
 
 /**
  *
- * @author iskä
+ * @author oona
  */
 public class Event {
 

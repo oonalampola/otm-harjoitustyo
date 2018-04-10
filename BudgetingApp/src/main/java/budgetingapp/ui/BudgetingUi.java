@@ -60,7 +60,7 @@ public class BudgetingUi extends Application {
         AccountDao accountDao = new AccountDao(database);
         Scanner scanner = new Scanner(System.in);
 
-        budService = new BudgetingService(userDao, scanner);
+        budService = new BudgetingService(userDao, accountDao);
     }
 
     @Override
@@ -157,6 +157,13 @@ public class BudgetingUi extends Application {
         createUserButton.setOnAction(e -> {
             String name = nameInput.getText();
             String username = newUserInput.getText();
+            
+            if(name.length() < 5||username.length()< 5){
+                creationMessage.setText("Name/Username too short (min 4)");
+                creationMessage.setTextFill(Color.RED);
+                primaryStage.setScene(createUserScene);
+                return;
+            }
 
             try {
                 if (budService.createUser(name, username)) {

@@ -18,6 +18,7 @@ public class User {
     public User(String name, String username) {
         this.name=name;
         this.username=username;
+        this.account = new Account(id);
     }
 
     public User(int id, String name, String username) {
@@ -35,7 +36,16 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
+    public void setAccount(Account a){
+        this.account = a;
+    }
+    public void setId(int id){
+        this.id=id;
+    }
+    public int getId(){
+        return this.id;
+    }
     
 
     public String getName() {
@@ -47,6 +57,9 @@ public class User {
     }
     public int getAccountBalance(){
         return this.account.getBalance();
+    }
+    public Account getAccount(){
+        return this.account;
     }
 
  

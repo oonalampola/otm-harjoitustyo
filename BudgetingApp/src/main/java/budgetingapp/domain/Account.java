@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author iskä
+ * @author oona
  */
 public class Account {
 
@@ -26,6 +26,11 @@ public class Account {
         this.balance = 0;
         this.events=new ArrayList();
 
+    }
+    public Account(int userId, int balance){
+        this.userId=userId;
+        this.balance=balance;
+        this.events=new ArrayList();
     }
 //
 //    public int getId() {
