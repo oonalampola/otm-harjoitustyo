@@ -21,27 +21,28 @@ public class BudgetingService {
     private Database database;
     private UserDao userDao;
     private Scanner scanner;
+    private User signedIn;
 
     public BudgetingService(UserDao userDao, Scanner scanner) throws ClassNotFoundException {
         this.userDao = userDao;
         this.scanner = scanner;
+        this.signedIn = null;
     }
 
     public boolean createUser(String name, String username) throws SQLException {
 
-        userDao.findByUsername(username);
-
-        if (userDao.findByUsername(username) == null) {
-            User user = new User(name, username);
+        User u = userDao.findByUsername(username);
+        if (u == null) {
             try {
+                User user = new User(name, username);
                 userDao.save(user);
+                return true;
             } catch (Exception e) {
                 return false;
             }
         } else {
             return false;
         }
-        return true;
     }
 
     public void start() throws SQLException {
@@ -56,6 +57,7 @@ public class BudgetingService {
             if (action == 1) {
                 System.out.print("Enter username: ");
                 String username = scanner.nextLine();
+                signIn(username);
 
                 //Kirjautumisen jälkeinen toiminta
             }
@@ -69,12 +71,30 @@ public class BudgetingService {
 
                 if (created) {
                     System.out.println("Username created, you can now sign in");
+                    continue;
                 } else {
                     System.out.println("Username already exists, pick another one");
                 }
 
             }
         }
+    }
+
+    public boolean signIn(String username) throws SQLException {
+        User u = userDao.findByUsername(username);
+        if (u == null) {
+            System.out.println("User not found");
+            return false;
+        }
+        System.out.println("Welcome, " + u.getName());
+        this.signedIn = u;
+        return true;
+    }
+    public void signOut(){
+        this.signedIn = null;
+    }
+    public User getSignedIn(){
+        return this.signedIn;
     }
 
 }

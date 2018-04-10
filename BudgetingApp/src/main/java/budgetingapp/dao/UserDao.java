@@ -31,16 +31,17 @@ public class UserDao implements Dao<User, Integer> {
 
     public User findByUsername(String username) throws SQLException {
         Connection c = database.getConnection();
-        PreparedStatement stmt = c.prepareStatement("SELECT name AS name, username AS username FROM User WHERE username = ?");
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM User WHERE username = ?");
         stmt.setString(1, username);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if(!hasOne){
+            System.out.println("palautetaan null");
             return null;
         }
         
-        User user = new User(rs.getString("name"), rs.getString("username"));
+        User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("username"));
         stmt.close();
         c.close();
         rs.close();
@@ -59,12 +60,17 @@ public class UserDao implements Dao<User, Integer> {
     @Override
     public void save(User user) throws SQLException {
         Connection c = database.getConnection();
-        PreparedStatement stmt = c.prepareStatement("INSERT INTO User (name, username) VALUES(?, ?");
+        PreparedStatement stmt = c.prepareStatement("INSERT INTO User (name, username) VALUES(?, ?)");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-
-        stmt.executeUpdate();
+        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Account (balance) VALUES (?)");
+        stmt2.setInt(1, 0);
+        stmt.execute();
+        stmt2.execute();
+        stmt.close();
+        stmt2.close();
         c.close();
+        
     }
 //EI TOTEUTETTU
 
