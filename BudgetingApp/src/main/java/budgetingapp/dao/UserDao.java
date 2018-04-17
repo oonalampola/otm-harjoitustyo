@@ -6,6 +6,7 @@
 package budgetingapp.dao;
 
 import budgetingapp.database.Database;
+import budgetingapp.domain.Account;
 import budgetingapp.domain.User;
 import java.sql.*;
 
@@ -36,22 +37,23 @@ public class UserDao implements Dao<User, Integer> {
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
-        if(!hasOne){
+        if (!hasOne) {
+            stmt.close();
+            c.close();
+            rs.close();
             System.out.println("palautetaan null");
             return null;
         }
-        
+
         User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("username"));
         stmt.close();
         c.close();
         rs.close();
-        
+
         return user;
     }
 
-
 //EI TOTEUTETTU
-
     @Override
     public List<User> findAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -63,14 +65,10 @@ public class UserDao implements Dao<User, Integer> {
         PreparedStatement stmt = c.prepareStatement("INSERT INTO User (name, username) VALUES(?, ?)");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Account (balance) VALUES (?)");
-        stmt2.setInt(1, 0);
         stmt.execute();
-        stmt2.execute();
         stmt.close();
-        stmt2.close();
         c.close();
-        
+
     }
 //EI TOTEUTETTU
 

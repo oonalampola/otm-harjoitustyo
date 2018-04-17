@@ -10,13 +10,13 @@ import budgetingapp.dao.UserDao;
 import budgetingapp.database.Database;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  *
  * @author oona
  */
-
 public class BudgetingService {
 
     private Database database;
@@ -25,31 +25,29 @@ public class BudgetingService {
     private Scanner scanner;
     private User signedIn;
     private Account account;
-    
 
     public BudgetingService(UserDao userDao, AccountDao accountDao) throws ClassNotFoundException {
         this.userDao = userDao;
-        
-        this.scanner = scanner;
+        this.accountDao = accountDao;
         this.signedIn = null;
         this.account = null;
     }
 
     public boolean createUser(String name, String username) throws SQLException {
-
         User u = userDao.findByUsername(username);
         if (u == null) {
-            try {
-                User user = new User(name, username);
-                userDao.save(user);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
-            return false;
+
+            User user = new User(name, username);
+            userDao.save(user);
+            user = userDao.findByUsername(username);
+            accountDao.createNewAccount(user.getId());
+            return true;
+
         }
+        return false;
+
     }
+
 //TEKSTIKÄYTTÖLIITTYMÄ
 //    public void start() throws SQLException {
 //        System.out.println("Welcome to BudgetingApp");
@@ -85,29 +83,41 @@ public class BudgetingService {
 //            }
 //        }
 //    }
-
     public boolean signIn(String username) throws SQLException {
-        User u = userDao.findByUsername(username);
-        if (u == null) {
+        this.signedIn = userDao.findByUsername(username);
+        if (this.signedIn == null) {
             System.out.println("User not found");
             return false;
         }
-        System.out.println("Welcome, " + u.getName());
-        this.signedIn = u;
-        this.account = accountDao.findByUserId(u.getId());
+        System.out.println("Welcome, " + this.signedIn.getName());  //apuprinttaus
+        System.out.println(this.signedIn.getId());
+        int id = this.signedIn.getId();
+        //System.out.println(account);
+        System.out.println(accountDao.findByUserId(id));
+        this.account = accountDao.findByUserId(id);
+        System.out.println(account);
+        signedIn.setAccount(this.account);
         
         return true;
     }
-    public void signOut(){
+
+    public void signOut() {
         this.signedIn = null;
     }
-    public User getSignedIn(){
+
+    public User getSignedIn() {
         return this.signedIn;
     }
-    public void addEvent(Event e){
-        account.addOneEvent(e);
-        
-        
+
+    public List getEvents() {
+        return account.getEvents();
+    }
+
+    public boolean addEvent(Event e) throws SQLException {
+        this.account.addOneEvent(e);
+
+        return accountDao.addEvent(e);
+
     }
 
 }

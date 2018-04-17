@@ -17,6 +17,14 @@ public class Event {
     private int category;
     private int accountId;
 
+    public Event(int amount, boolean inOrPay, int accountId) {
+
+        this.amount = amount;
+        this.inOrPay = inOrPay;
+        this.category = 0;
+        this.accountId = accountId;
+    }
+
     public Event(int id, int amount, boolean inOrPay, int accountId) {
         this.id = id;
         this.amount = amount;
@@ -27,6 +35,10 @@ public class Event {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

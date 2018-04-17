@@ -21,16 +21,17 @@ public class Account {
     private List<Event> events;
 
     public Account(int userId) {
-      
+
         this.userId = userId;
         this.balance = 0;
-        this.events=new ArrayList();
+        this.events = new ArrayList();
 
     }
-    public Account(int userId, int balance){
-        this.userId=userId;
-        this.balance=balance;
-        this.events=new ArrayList();
+
+    public Account(int userId, int balance) {
+        this.userId = userId;
+        this.balance = balance;
+        this.events = new ArrayList();
     }
 //
 //    public int getId() {
@@ -40,27 +41,30 @@ public class Account {
     public int getBalance() {
         return this.balance;
     }
-    
 
     public int getUserId() {
         return this.userId;
     }
-    public List getEvents(){
+
+    public List getEvents() {
         return this.events;
     }
-    public void setBalance(int amount){
-        this.balance=amount;
+
+    public void setBalance(int amount) {
+        this.balance = amount;
     }
-    public void addEvents(List<Event> eventslist){
+
+    public void addEvents(List<Event> eventslist) {
         for (int i = 0; i < eventslist.size(); i++) {
             this.events.add(eventslist.get(i));
         }
         for (int i = 0; i < events.size(); i++) {
-            this.balance-=events.get(i).getAmount();
+            this.balance -= events.get(i).getAmount();
         }
     }
-    public void addOneEvent(Event e){
+
+    public void addOneEvent(Event e) {
         this.events.add(e);
-        this.balance-=e.getAmount();
+        this.balance -= e.getAmount();
     }
 }

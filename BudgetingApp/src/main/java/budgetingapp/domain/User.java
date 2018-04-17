@@ -10,24 +10,25 @@ package budgetingapp.domain;
  * @author oona
  */
 public class User {
+
     private int id;
     private String name;
     private String username;
     private Account account;
-    
+
     public User(String name, String username) {
-        this.name=name;
-        this.username=username;
-        this.account = new Account(id);
+        this.name = name;
+        this.username = username;
+        this.account = null;
     }
 
     public User(int id, String name, String username) {
+        this.id = id;
         this.name = name;
         this.username = username;
-        this.account = new Account(id);
+        this.account = null;
 
     }
-    
 
     public void setName(String name) {
         this.name = name;
@@ -36,17 +37,18 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    public void setAccount(Account a){
+
+    public void setAccount(Account a) {
         this.account = a;
     }
-    public void setId(int id){
-        this.id=id;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
-    
 
     public String getName() {
         return this.name;
@@ -55,12 +57,13 @@ public class User {
     public String getUsername() {
         return this.username;
     }
-    public int getAccountBalance(){
+
+    public int getAccountBalance() {
         return this.account.getBalance();
     }
-    public Account getAccount(){
+
+    public Account getAccount() {
         return this.account;
     }
 
- 
 }

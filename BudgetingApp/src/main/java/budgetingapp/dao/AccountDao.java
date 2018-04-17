@@ -27,21 +27,37 @@ public class AccountDao implements Dao<Account, Integer> {
         this.database = database;
     }
 
+    public void createNewAccount(int userId) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Account (balance, user_id) VALUES (?, ?)");
+        stmt2.setInt(1, 0);
+        stmt2.setInt(2, userId);
+        stmt2.execute();
+        stmt2.close();
+        c.close();
+    }
+
     public Account findByUserId(int id) throws SQLException {
 
         Connection c = database.getConnection();
+        System.out.println("accoundao yhteys otettu");
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM Account WHERE id = ?");
         stmt.setInt(1, id);
 
         ResultSet rs = stmt.executeQuery();
+        System.out.println("kysely tehty");
         boolean hasOne = rs.next();
+        System.out.println(hasOne);
         if (!hasOne) {
-            System.out.println("palautetaan null");
+            System.out.println("palautetaan null account");
             return null;
         }
-
-        Account a = new Account(rs.getInt("id"), rs.getInt("balance"));
-        a.addEvents(findAccountEvents(id));
+        int foundId = rs.getInt("id");
+        int balance = rs.getInt("balance");
+        System.out.println("id ja balance: " + foundId + ", " + balance);
+        Account a = new Account(foundId, balance);
+        System.out.println(a + "accoundao");
+        //a.addEvents(findAccountEvents(id));
         stmt.close();
         c.close();
         rs.close();
@@ -50,18 +66,33 @@ public class AccountDao implements Dao<Account, Integer> {
     }
 
     public List findAccountEvents(int id) throws SQLException {
-        
+
         List<Event> list = new ArrayList<>();
         Connection c = database.getConnection();
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM Event WHERE account_id = ?");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             list.add(new Event(rs.getInt("id"), rs.getInt("amount"), rs.getBoolean("inOrPay"), rs.getInt("account_id")));
-            
+
         }
         return list;
+    }
+
+    public boolean addEvent(Event e) throws SQLException {
+
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Event (amount, inorpay, account_id) VALUES (?, ?, ?)");
+        stmt2.setInt(1, e.getAmount());
+        stmt2.setBoolean(2, e.getInOrPay());
+        stmt2.setInt(3, e.getAccountId());
+        stmt2.execute();
+        stmt2.close();
+        c.close();
+
+        return true;
+
     }
 
     @Override
@@ -75,8 +106,15 @@ public class AccountDao implements Dao<Account, Integer> {
     }
 
     @Override
-    public void save(Account object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void save(Account a) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Account (balance, user_id) VALUES (?, ?)");
+        stmt2.setInt(1, 0);
+        stmt2.setInt(2, a.getUserId());
+        stmt2.execute();
+        stmt2.close();
+        c.close();
+
     }
 
     @Override
