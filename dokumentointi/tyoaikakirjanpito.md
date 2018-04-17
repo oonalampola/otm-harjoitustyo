@@ -8,6 +8,6 @@
 10.4. | 8 | Aiempien toiminnallisuuksien hiominen, raakaversio graafisesta käyttöliittymästä
 12.4. | 4 | Tapahtumien lisäämisen toteuttaminen aloitettu
 15.4. | 1 | Checkstyle otettu käyttöön
-17.4. | 5 | Tapahtumien lisäämisen toteutusta jatkettu
-**yht.** | 18 |
+17.4. | 6 | Tapahtumien lisäämisen toteutusta jatkettu
+**yht.** | 29 |
 
