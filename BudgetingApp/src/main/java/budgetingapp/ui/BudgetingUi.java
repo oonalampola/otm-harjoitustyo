@@ -70,6 +70,7 @@ public class BudgetingUi extends Application {
 
         budService = new BudgetingService(userDao, accountDao);
         eventsList = new ArrayList<>();
+        User signedInUser = new User();
 
     }
 
@@ -154,10 +155,6 @@ public class BudgetingUi extends Application {
 
         Button newEventBut = new Button("Add new event");
 
-        mainPane.setTop(menuPane);
-        mainPane.setCenter(eventScroller);
-        menuPane.getChildren().addAll(menuLabel, accountBalance, logoutButton, newEventBut);
-        signedIn = new Scene(mainPane, 400, 300);
         logoutButton.setOnAction(e -> {
 
             budService.signOut();
@@ -169,6 +166,10 @@ public class BudgetingUi extends Application {
             addNewEvent(primaryStage);
 
         });
+        mainPane.setTop(menuPane);
+        mainPane.setCenter(eventScroller);
+        menuPane.getChildren().addAll(menuLabel, accountBalance, logoutButton, newEventBut);
+        signedIn = new Scene(mainPane, 400, 300);
 
         //new user
         VBox newUserPane = new VBox(10);
@@ -254,7 +255,7 @@ public class BudgetingUi extends Application {
             int amount = Integer.parseInt(amountTextField.getText());
 
             if (amount == 0) {
-                addingMessage.setText("Amount cant be 0");
+                addingMessage.setText("Amount can't be 0");
                 addingMessage.setTextFill(Color.RED);
                 amountTextField.clear();
             }
@@ -265,7 +266,7 @@ public class BudgetingUi extends Application {
             Event event = new Event(amount, inOrPay, id);
 
             try {
-                if(budService.addEvent(event)){
+                if (budService.addEvent(event)) {
                     primaryStage.setScene(signedIn);
                 }
 
@@ -289,6 +290,12 @@ public class BudgetingUi extends Application {
 //                        "Option 3"
 //                );
 //        ComboBox comboBox = new ComboBox(options);
+    }
+
+    public List getEvents(int id) {
+        List<Event> ev = new ArrayList<>();
+        ev = budService.getEvents();
+        return ev;
     }
 
 }

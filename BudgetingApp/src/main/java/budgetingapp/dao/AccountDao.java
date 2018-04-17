@@ -72,11 +72,15 @@ public class AccountDao implements Dao<Account, Integer> {
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM Event WHERE account_id = ?");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
-
+        
         while (rs.next()) {
-            list.add(new Event(rs.getInt("id"), rs.getInt("amount"), rs.getBoolean("inOrPay"), rs.getInt("account_id")));
-
+            Event e = new Event(rs.getInt("amount"), rs.getBoolean("inOrPay"), rs.getInt("account_id"));
+            list.add(e);
+            System.out.println(e.getAmount());
         }
+        stmt.close();
+        c.close();
+        rs.close();
         return list;
     }
 
@@ -88,6 +92,7 @@ public class AccountDao implements Dao<Account, Integer> {
         stmt2.setBoolean(2, e.getInOrPay());
         stmt2.setInt(3, e.getAccountId());
         stmt2.execute();
+        
         stmt2.close();
         c.close();
 
@@ -112,6 +117,7 @@ public class AccountDao implements Dao<Account, Integer> {
         stmt2.setInt(1, 0);
         stmt2.setInt(2, a.getUserId());
         stmt2.execute();
+        
         stmt2.close();
         c.close();
 
