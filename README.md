@@ -14,7 +14,7 @@
 
 <h3>Testaus</h3>
 
-Testit suoritetaan komennollaa
+Testit suoritetaan komennolla
 
 ```
 mvn test
