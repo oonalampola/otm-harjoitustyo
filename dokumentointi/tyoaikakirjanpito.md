@@ -9,5 +9,8 @@
 12.4. | 4 | Tapahtumien lisäämisen toteuttaminen aloitettu
 15.4. | 1 | Checkstyle otettu käyttöön
 17.4. | 6 | Tapahtumien lisäämisen toteutusta jatkettu
-**yht.** | 29 |
+20.4. | 3 | Tilin saldon muuttuminen tapahtumien lisääntyessä toteutettu
+22.4. | 4 | Tapahtumien lisäämistä parannettu, menojen graafisen esitystavan toteutus aloitettu
+23.4. | 6 | Graafinen esitystapa toteutettu, testejä lisätty
+**yht.** | 42 |
 
