@@ -28,12 +28,12 @@ Sovelluksessa on yhdenlaisia käyttäjiä, joiden käyttöoikeudet rajoittuvat h
 - Käyttäjä voi lisätä menoja, jotka voi asettaa tiettyyn kategoriaan 
 - Käyttäjä voi asettaa itselleen kuukausibudjetin
 - Käyttäjä voi tarkastella tietoja kalenterikuukausittain
+- Graafinen esitys kuukauden menojen jakautumisesta
 
 <h2>Jatkokehitysideoita</h2>
 
 Ideoita sovelluksen jatkokehitykseen
 
-- Graafinen esitys kuukauden menojen jakautumisesta
 - Spesifimpien ajanjaksojen valitseminen tarkasteltavaksi
 - Tallennettujen tietojen muokkaaminen jälkikäteen
 - Tallennettujen tietojen poistaminen
