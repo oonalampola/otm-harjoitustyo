@@ -1,6 +1,7 @@
 
 <h1>BudgetingApp</h1>
 
+
 <h2>Dokumentaatio</h2>
 
 [Vaatimusmäärittely](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
@@ -9,7 +10,11 @@
 
 [Arkkitehtuurikuvaus](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
+<h2>Releaset</h2>
 
+[Viikko 5](https://github.com/oonalampola/otm-harjoitustyo/releases)
+
+https://github.com/oonalampola/otm-harjoitustyo/releases
 <h2>Komentorivitoiminnot</h2>
 
 <h3>Testaus</h3>
