@@ -19,9 +19,11 @@ import java.util.*;
 public class UserDao implements Dao<User, Integer> {
 
     private Database database;
+    private AccountDao accountDao;
 
     public UserDao(Database database) {
         this.database = database;
+        this.accountDao = new AccountDao(database);
     }
 
 //EI TOTEUTETTU
@@ -46,6 +48,8 @@ public class UserDao implements Dao<User, Integer> {
         }
 
         User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("username"));
+        Account a = accountDao.findByUserId(rs.getInt("id"));
+        user.setAccount(a);
         stmt.close();
         c.close();
         rs.close();
@@ -83,4 +87,14 @@ public class UserDao implements Dao<User, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void delete(String username) throws SQLException {
+        if (findByUsername(username) != null) {
+            Connection c = database.getConnection();
+            PreparedStatement stmt = c.prepareStatement("DELETE FROM User WHERE username=?");
+            stmt.setString(1, username);
+            stmt.execute();
+            stmt.close();
+            c.close();
+        }
+    }
 }

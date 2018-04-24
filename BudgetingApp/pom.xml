@@ -29,6 +29,13 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.21.0.1</version>
         </dependency>  
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -51,7 +58,7 @@
                 <version>0.8.0</version>
                 <configuration>
                     <excludes>
-                        <exclude>BudgetingApp/ui/*</exclude>
+                        <exclude>budgetingapp/ui/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

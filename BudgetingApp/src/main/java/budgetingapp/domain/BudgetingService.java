@@ -48,41 +48,6 @@ public class BudgetingService {
 
     }
 
-//TEKSTIKÄYTTÖLIITTYMÄ
-//    public void start() throws SQLException {
-//        System.out.println("Welcome to BudgetingApp");
-//        System.out.println("");
-//        int action = 1;
-//        while (action == 1 || action == 2) {
-//            System.out.println("To sign in, enter 1 " + "\n"
-//                    + "To create a new user, enter 2");
-//            action = Integer.parseInt(scanner.nextLine());
-//
-//            if (action == 1) {
-//                System.out.print("Enter username: ");
-//                String username = scanner.nextLine();
-//                signIn(username);
-//
-//                //Kirjautumisen jälkeinen toiminta
-//            }
-//            if (action == 2) {
-//                System.out.println("What is your name? ");
-//                String name = scanner.nextLine();
-//                System.out.println("Username: ");
-//                String username = scanner.nextLine();
-//
-//                boolean created = createUser(name, username);
-//
-//                if (created) {
-//                    System.out.println("Username created, you can now sign in");
-//                    continue;
-//                } else {
-//                    System.out.println("Username already exists, pick another one");
-//                }
-//
-//            }
-//        }
-//    }
     public boolean signIn(String username) throws SQLException {
         this.signedIn = userDao.findByUsername(username);
         if (this.signedIn == null) {
@@ -99,6 +64,10 @@ public class BudgetingService {
         signedIn.setAccount(this.account);
         
         return true;
+    }
+    public User updateUserInfo(String username) throws SQLException{
+        this.signedIn = userDao.findByUsername(username);
+        return this.signedIn;
     }
 
     public void signOut() {
@@ -118,6 +87,17 @@ public class BudgetingService {
 
         return accountDao.addEvent(e);
 
+    }
+    public List<Double> getCategoryAmounts(Account a) throws SQLException{
+        List<Double> list = accountDao.countCategories(a);
+        return list;
+    }
+    public void deleteEvents(int id) throws SQLException{
+        accountDao.deleteEvents(id);
+    }
+    public void clearBalance() throws SQLException{
+        accountDao.clearBalance(account);
+        account.setBalance(0);
     }
 
 }

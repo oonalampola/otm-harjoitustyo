@@ -31,7 +31,7 @@ public class User {
     }
 
     public User() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public void setName(String name) {
@@ -62,7 +62,7 @@ public class User {
         return this.username;
     }
 
-    public int getAccountBalance() {
+    public double getAccountBalance() {
         return this.account.getBalance();
     }
 

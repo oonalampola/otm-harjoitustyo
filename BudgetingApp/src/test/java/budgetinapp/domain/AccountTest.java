@@ -37,7 +37,7 @@ public class AccountTest {
     @Before
     public void setUp() {
          this.testAccount = new Account(1);
-         this.testEvent = new Event(500, true, 1);
+         this.testEvent = new Event(500, 1);
     }
 
     @After
@@ -63,13 +63,13 @@ public class AccountTest {
     @Test
     public void settingBalanceWorks(){
         testAccount.setBalance(500);
-        assertEquals(500, testAccount.getBalance());
+        assertTrue(500 == testAccount.getBalance());
     }
     @Test
     public void addingEventsAddsEvents(){
        
         testAccount.addOneEvent(testEvent);
         Event e = (Event) testAccount.getEvents().get(0);
-        assertEquals(testEvent.getAmount(), e.getAmount());
+        assertTrue(testEvent.getAmount() ==  e.getAmount());
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class Account {
 
 //    private int id; <- sama kuin userId
-    private int balance;
+    private double balance;
     private int userId;
     private List<Event> events;
 
@@ -28,7 +28,7 @@ public class Account {
 
     }
 
-    public Account(int userId, int balance) {
+    public Account(int userId, double balance) {
         this.userId = userId;
         this.balance = balance;
         this.events = new ArrayList();
@@ -38,7 +38,7 @@ public class Account {
 //        return this.id;
 //    }
 
-    public int getBalance() {
+    public double getBalance() {
         return this.balance;
     }
 
@@ -50,7 +50,7 @@ public class Account {
         return this.events;
     }
 
-    public void setBalance(int amount) {
+    public void setBalance(double amount) {
         this.balance = amount;
     }
 

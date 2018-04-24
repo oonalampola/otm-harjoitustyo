@@ -12,23 +12,20 @@ package budgetingapp.domain;
 public class Event {
 
     private int id;
-    private int amount;
-    private boolean inOrPay;
+    private double amount;
     private int category;
     private int accountId;
 
-    public Event(int amount, boolean inOrPay, int accountId) {
+    public Event(double amount, int accountId) {
 
         this.amount = amount;
-        this.inOrPay = inOrPay;
         this.category = 0;
         this.accountId = accountId;
     }
 
-    public Event(int id, int amount, boolean inOrPay, int accountId) {
+    public Event(int id, double amount, int accountId) {
         this.id = id;
         this.amount = amount;
-        this.inOrPay = inOrPay;
         this.category = 0;
         this.accountId = accountId;
     }
@@ -46,7 +43,7 @@ public class Event {
 
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return this.amount;
     }
 
@@ -56,10 +53,6 @@ public class Event {
 
     public int getCategory() {
         return this.category;
-    }
-
-    public boolean getInOrPay() {
-        return this.inOrPay;
     }
 
 }
