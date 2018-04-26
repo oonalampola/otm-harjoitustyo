@@ -7,10 +7,10 @@
 
 Käyttöliittymä sisältää tällä hetkellä neljä erilaista näkymää
 
--Sisäänkirjautuminen
--Uuden käyttäjän luominen
--Tilitapahtumat ympyrädiakgrammina
--Uuden tilitapahtuman luominen
+- Sisäänkirjautuminen
+- Uuden käyttäjän luominen
+- Tilitapahtumat ympyrädiakgrammina
+- Uuden tilitapahtuman luominen
 
 <h2>Päätoiminnallisuudet</h2>
 
