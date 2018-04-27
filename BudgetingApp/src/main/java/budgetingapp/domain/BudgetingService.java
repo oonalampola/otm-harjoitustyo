@@ -51,21 +51,18 @@ public class BudgetingService {
     public boolean signIn(String username) throws SQLException {
         this.signedIn = userDao.findByUsername(username);
         if (this.signedIn == null) {
-            System.out.println("User not found");
             return false;
         }
-        System.out.println("Welcome, " + this.signedIn.getName());  //apuprinttaus
-        System.out.println(this.signedIn.getId());
+
         int id = this.signedIn.getId();
         //System.out.println(account);
-        System.out.println(accountDao.findByUserId(id));
         this.account = accountDao.findByUserId(id);
-        System.out.println(account);
         signedIn.setAccount(this.account);
-        
+
         return true;
     }
-    public User updateUserInfo(String username) throws SQLException{
+
+    public User updateUserInfo(String username) throws SQLException {
         this.signedIn = userDao.findByUsername(username);
         return this.signedIn;
     }
@@ -78,8 +75,15 @@ public class BudgetingService {
         return this.signedIn;
     }
 
-    public List getEvents() {
-        return account.getEvents();
+    public List getEvents(int id) throws SQLException {
+        List<Event> events = accountDao.findAccountEvents(id);
+        return events;
+    }
+
+    public List getMonthlyEvents(int id, int month, int year) throws SQLException {
+        List<Event> list = accountDao.getMonthlyEvents(id, month, year);
+        return list;
+
     }
 
     public boolean addEvent(Event e) throws SQLException {
@@ -88,14 +92,23 @@ public class BudgetingService {
         return accountDao.addEvent(e);
 
     }
-    public List<Double> getCategoryAmounts(Account a) throws SQLException{
+
+    public List<Double> getCategoryAmounts(Account a) throws SQLException {
         List<Double> list = accountDao.countCategories(a);
         return list;
     }
-    public void deleteEvents(int id) throws SQLException{
+
+    public List<Double> getMonthlyCategoryAmounts(int id, int month, int year) throws SQLException {
+        List<Double> list = accountDao.countMonthlyCategories(id, month, year);
+        return list;
+
+    }
+
+    public void deleteEvents(int id) throws SQLException {
         accountDao.deleteEvents(id);
     }
-    public void clearBalance() throws SQLException{
+
+    public void clearBalance() throws SQLException {
         accountDao.clearBalance(account);
         account.setBalance(0);
     }

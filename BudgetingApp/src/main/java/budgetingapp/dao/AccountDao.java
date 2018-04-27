@@ -9,6 +9,7 @@ import budgetingapp.database.Database;
 import budgetingapp.domain.Account;
 import budgetingapp.domain.Event;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  *
@@ -25,7 +27,7 @@ import java.sql.Timestamp;
 public class AccountDao implements Dao<Account, Integer> {
 
     Database database;
-    Timestamp timestamp;
+    Date date;
 
     public AccountDao(Database database) {
         this.database = database;
@@ -73,12 +75,14 @@ public class AccountDao implements Dao<Account, Integer> {
 
         List<Event> list = new ArrayList<>();
         Connection c = database.getConnection();
-        PreparedStatement stmt = c.prepareStatement("SELECT * FROM Event WHERE account_id = ? ORDER BY time");
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM Event WHERE account_id = ? ORDER BY year, month");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
             Event e = new Event(rs.getDouble("amount"), rs.getInt("account_id"));
+            e.setCategory(rs.getInt("category"));
+            e.setTime(rs.getInt("month"), rs.getInt("year"));
             list.add(e);
             System.out.println(e.getAmount());
         }
@@ -89,14 +93,14 @@ public class AccountDao implements Dao<Account, Integer> {
     }
 
     public boolean addEvent(Event e) throws SQLException {
-        this.timestamp = new Timestamp(System.currentTimeMillis());
 
         Connection c = database.getConnection();
-        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Event (amount, time, category, account_id) VALUES (?, ?, ?, ?)");
+        PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Event (amount, month, year, category, account_id) VALUES (?, ?, ?, ?, ?)");
         stmt2.setDouble(1, e.getAmount());
-        stmt2.setTimestamp(2, timestamp);
-        stmt2.setInt(3, e.getCategory());
-        stmt2.setInt(4, e.getAccountId());
+        stmt2.setInt(2, e.getMonth());
+        stmt2.setInt(3, e.getYear());
+        stmt2.setInt(4, e.getCategory());
+        stmt2.setInt(5, e.getAccountId());
 
         stmt2.execute();
 
@@ -294,4 +298,127 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    public List getMonthlyEvents(int id, int month, int year) throws SQLException {
+
+        List<Event> list = new ArrayList<>();
+        Connection c = database.getConnection();
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM Event WHERE account_id = ? AND month = ? AND year = ?");
+        stmt.setInt(1, id);
+        stmt.setInt(2, month);
+        stmt.setInt(3, year);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Event e = new Event(rs.getDouble("amount"), rs.getInt("account_id"));
+            e.setCategory(rs.getInt("category"));
+            e.setTime(rs.getInt("month"), rs.getInt("year"));
+            list.add(e);
+        }
+        stmt.close();
+        c.close();
+        rs.close();
+        return list;
+
+    }
+
+    public List<Double> countMonthlyCategories(int id, int month, int year) throws SQLException {
+        List<Double> amounts = new ArrayList<>();
+        amounts.clear();
+        amounts.add(countMonthlyLiving(id, month, year));
+        amounts.add(countMonthlyFood(id, month, year));
+        amounts.add(countMonthlyGoods(id, month, year));
+        amounts.add(countMonthlySpareTime(id, month, year));
+
+        return amounts;
+    }
+
+    public double countMonthlyLiving(int id, int month, int year) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 1 AND account_id = ? AND month = ? AND year = ?");
+
+        stmt2.setInt(1, id);
+        stmt2.setInt(2, month);
+        stmt2.setInt(3, year);
+
+        ResultSet rs = stmt2.executeQuery();
+
+        if (!rs.next()) {
+            return 0;
+        }
+        double amount = rs.getDouble(1);
+
+        stmt2.close();
+        rs.close();
+        c.close();
+        System.out.println("kuukauden eläminen " + amount);
+        return amount;
+    }
+
+    public double countMonthlyFood(int id, int month, int year) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 2 AND account_id = ? AND month = ? AND year = ?");
+
+        stmt2.setInt(1, id);
+        stmt2.setInt(2, month);
+        stmt2.setInt(3, year);
+
+        ResultSet rs = stmt2.executeQuery();
+
+        if (!rs.next()) {
+            return 0;
+        }
+        double amount = rs.getDouble(1);
+
+        stmt2.close();
+        rs.close();
+        c.close();
+
+        return amount;
+    }
+
+    public double countMonthlyGoods(int id, int month, int year) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 3 AND account_id = ? AND month = ? AND year = ?");
+        
+        stmt2.setInt(1, id);
+        stmt2.setInt(2, month);
+        stmt2.setInt(3, year);
+
+        ResultSet rs = stmt2.executeQuery();
+
+        if (!rs.next()) {
+            return 0;
+        }
+        double amount = rs.getDouble(1);
+        System.out.println("Goods Monthly: " + amount);
+        stmt2.close();
+        rs.close();
+        c.close();
+
+        return amount;
+    }
+
+    public double countMonthlySpareTime(int id, int month, int year) throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 4 AND account_id = ? AND month = ? AND year = ?");
+
+        stmt2.setInt(1, id);
+        stmt2.setInt(2, month);
+        stmt2.setInt(3, year);
+
+        ResultSet rs = stmt2.executeQuery();
+
+        if (!rs.next()) {
+            return 0;
+        }
+        double amount = rs.getDouble(1);
+        System.out.println("Spare time monthly " +amount);
+        stmt2.close();
+        rs.close();
+        c.close();
+
+        return amount;
+
+    }
 }

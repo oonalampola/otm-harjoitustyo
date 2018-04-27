@@ -5,6 +5,9 @@
  */
 package budgetingapp.domain;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  *
  * @author oona
@@ -15,6 +18,8 @@ public class Event {
     private double amount;
     private int category;
     private int accountId;
+    private int month;
+    private int year;
 
     public Event(double amount, int accountId) {
 
@@ -28,8 +33,12 @@ public class Event {
         this.amount = amount;
         this.category = 0;
         this.accountId = accountId;
+        
     }
-
+    public void setTime(int month, int year){
+        this.month = month;
+        this.year = year;
+    }
     public void setCategory(int category) {
         this.category = category;
     }
@@ -53,6 +62,12 @@ public class Event {
 
     public int getCategory() {
         return this.category;
+    }
+    public int getMonth(){
+        return this.month;
+    }
+    public int getYear(){
+        return this.year;
     }
 
 }

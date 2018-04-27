@@ -15,7 +15,10 @@ import budgetingapp.domain.Event;
 import budgetingapp.domain.User;
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -36,6 +39,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -62,6 +66,11 @@ public class BudgetingUi extends Application {
     private Account signedInAccount;
     private PieChart pieChart;
     private BorderPane mainPane;
+    private ScrollPane eventScroller;
+    private GridPane eventsAndPiePane;
+    private ListView<HBox> listView;
+    ObservableList<HBox> items;
+    private GuiHelper guiHelper;
 
     @Override
     public void init() throws Exception {
@@ -79,7 +88,11 @@ public class BudgetingUi extends Application {
         signedInAccount = null;
         pieChart = null;
         mainPane = new BorderPane();
-
+        eventScroller = new ScrollPane();
+        eventsAndPiePane = new GridPane();
+        listView = new ListView<>();
+        items = FXCollections.observableArrayList();
+        guiHelper = new GuiHelper();
     }
 
     @Override
@@ -91,19 +104,28 @@ public class BudgetingUi extends Application {
 
         Button logoutButton = new Button("Sign out");
         Button newEventBut = new Button("Add new event");
-
+        
         //Toimivat, mutta eivät vielä päivitä suoraan
         Button deleteButton = new Button("Delete all events");
         Button clearBalance = new Button("Clear balance");
 
+        //Sign out
         logoutButton.setOnAction(e -> {
-
+            eventsAndPiePane.getChildren().removeAll(pieChart, eventScroller);
+            pieChart = null;
+            items.clear();
+            eventsList.clear();
             budService.signOut();
             primaryStage.setScene(gettingStarted);
         });
         deleteButton.setOnAction(e -> {
             try {
                 budService.deleteEvents(signedInUser.getId());
+                pieChart = createChart();
+                eventsAndPiePane.getChildren().remove(pieChart);
+                eventsAndPiePane.add(pieChart, 0, 0);
+
+                createEventScroller();
             } catch (SQLException ex) {
                 Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -112,6 +134,8 @@ public class BudgetingUi extends Application {
             try {
                 budService.clearBalance();
                 signedInAccount.setBalance(0);
+                accountBalance.setText("Balance: " + signedInAccount.getBalance());
+
             } catch (SQLException ex) {
                 Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -123,15 +147,74 @@ public class BudgetingUi extends Application {
 
         });
         mainPane.setTop(menuPane);
-        pieChart = createChart();
-        mainPane.setCenter(pieChart);
+
         mainPane.setBottom(bottomMenuPane);
-        menuPane.getChildren().addAll(menuLabel, accountBalance, logoutButton, newEventBut);
-        bottomMenuPane.getChildren().addAll(deleteButton, clearBalance);
-        signedIn = new Scene(mainPane, 500, 300);
+        menuPane.getChildren().addAll(menuLabel, accountBalance, newEventBut, deleteButton, clearBalance, logoutButton);
+
+        Label chooseTime = new Label("Choose time");
+        Button showThisMonth = new Button("Show");
+        Button showAllEvents = new Button("Show all");
+        ObservableList<String> monthOptions
+                = FXCollections.observableArrayList(
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "November",
+                        "December"
+                );
+
+        ComboBox months = new ComboBox(monthOptions);
+
+        ObservableList<Integer> yearOptions
+                = FXCollections.observableArrayList(
+                        2016,
+                        2017,
+                        2018
+                );
+        ComboBox years = new ComboBox(yearOptions);
+        bottomMenuPane.getChildren().addAll(chooseTime, months, years, showThisMonth, showAllEvents);
+
+        signedIn = new Scene(mainPane, 700, 300);
+        showAllEvents.setOnAction(e-> {
+            eventsAndPiePane.getChildren().remove(pieChart);
+            try {
+                pieChart = createChart();
+            } catch (SQLException ex) {
+                Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            eventsAndPiePane.getChildren().add(pieChart);
+            try {
+                createEventScroller();
+            } catch (SQLException ex) {
+                Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        });
+        showThisMonth.setOnAction(e -> {
+            eventsAndPiePane.getChildren().removeAll(pieChart, eventScroller);
+
+            try {
+                pieChart = createMonthlyChart(signedInUser.getId(), months.getValue().toString(), Integer.parseInt(years.getValue().toString()));
+                createMonthlyScroller(signedInUser.getId(), months.getValue().toString(), Integer.parseInt(years.getValue().toString()));
+            } catch (SQLException ex) {
+                Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            eventsAndPiePane.add(pieChart, 0, 0);
+            eventsAndPiePane.add(eventScroller, 1, 0);
+        });
+
         //kirjautuminen
         VBox signInPane = new VBox(10);
         HBox inputPane = new HBox(10);
+
+        eventScroller.setMaxWidth(350);
+        eventScroller.setMinWidth(350);
 
         signInPane.setPadding(new Insets(10));
         Label loginLabel = new Label("Username");
@@ -143,6 +226,8 @@ public class BudgetingUi extends Application {
         Button signinButton = new Button("Sign in");
         Button createNewButton = new Button("Create new user");
         StackPane eventsPane = new StackPane();
+
+        //Sign In
         signinButton.setOnAction(e -> {
             String username = usernameInput.getText();
             menuLabel.setText("Welcome, " + username + "!");
@@ -159,34 +244,33 @@ public class BudgetingUi extends Application {
                     primaryStage.setTitle("BudgetingApp");
                     usernameInput.setText("");
                     accountBalance.setText("Balance: " + signedInUser.getAccountBalance());
-                    pieChart = createChart();
-                    mainPane.setCenter(pieChart);
-                    //Tapahtumat
-//                    ListView<Integer> listView = new ListView<>();
-//                    listView.setPrefSize(200, 250);
-//                    listView.setEditable(true);
-//
-//                    ObservableList<Integer> items = FXCollections.observableArrayList();
-//
-//                    signedInUser = budService.updateUserInfo(username);
-//                    Account a = signedInUser.getAccount();
-//                    eventsList = a.getEvents();
-//                    System.out.println(eventsList);
-//
-//                    double amount;
-//                    Event ev;
-//                    for (int i = 0; i < eventsList.size(); i++) {
-//
-//                        ev = eventsList.get(i);
-//                        amount = ev.getAmount();
-//
-//                        // items.add(amount);
-//                    }
-//
-//                    listView.setItems(items);
-//
-//                    eventsPane.getChildren().add(listView);
-//                    eventScroller.setContent(listView);
+                    if (pieChart == null) {
+                        pieChart = createChart();
+                    }
+                    mainPane.setCenter(eventsAndPiePane);
+                    eventsAndPiePane.add(pieChart, 0, 0);
+                    eventsAndPiePane.add(eventScroller, 1, 0);
+
+//Tapahtumat 
+                    listView.setPrefSize(350, 250);
+                    listView.setEditable(true);
+
+                    signedInUser = budService.updateUserInfo(username);
+                    Account a = signedInUser.getAccount();
+                    eventsList = budService.getEvents(signedInUser.getId());
+                    System.out.println(eventsList);
+
+                    double amount;
+                    Event ev;
+                    for (int i = 0; i < eventsList.size(); i++) {
+                        Event event = eventsList.get(i);
+                        items.add(createEventElement(event));
+                    }
+                    listView.getItems().clear();
+                    listView.setItems(items);
+
+                    eventScroller.setContent(listView);
+
                 } else {
                     signInMessage.setText("Username not found");
                     signInMessage.setTextFill(Color.RED);
@@ -275,6 +359,7 @@ public class BudgetingUi extends Application {
 
         VBox newEventPane = new VBox(10);
         HBox amountPane = new HBox(10);
+        HBox DateOptions = new HBox(10);
         HBox buttonPane = new HBox(10);
 
         //Kategoriaa varten
@@ -293,32 +378,74 @@ public class BudgetingUi extends Application {
         Label amountLabel = new Label("Amount: ");
         TextField amountTextField = new TextField();
 
+        ObservableList<Integer> yearOptions
+                = FXCollections.observableArrayList(
+                        2016,
+                        2017,
+                        2018
+                );
+        ComboBox years = new ComboBox(yearOptions);
+
+        ObservableList<Integer> monthOptions
+                = FXCollections.observableArrayList();
+
+        for (int i = 1; i < 13; i++) {
+            monthOptions.add(i);
+        }
+
+        ComboBox months = new ComboBox(monthOptions);
+
+//        ObservableList<String> dayOptions
+//                = FXCollections.observableArrayList();
+//        for (int i = 1; i < 32; i++) {
+//            dayOptions.add(i + "");
+//        }
+//
+//        ComboBox days = new ComboBox(dayOptions);
+        years.setEditable(true);
+        months.setEditable(true);
+//        days.setEditable(true);
+
+        years.setPromptText("yyyy");
+        months.setPromptText("mm");
+//        days.setPromptText("dd");
+
+        DateOptions.getChildren().addAll(months, years);
+
         Button addEvent = new Button("Add!");
         Label addingMessage = new Label();
         addEvent.setOnAction(e -> {
 
             int id = signedInUser.getId();
-            boolean inOrPay = true;
             double amount = Double.parseDouble(amountTextField.getText());
             String category = categoryOptions.getValue().toString();
+            int year = Integer.parseInt(years.getValue().toString());
+            int month = Integer.parseInt(months.getValue().toString());
+//            int day = Integer.parseInt(days.getValue().toString());
+
             System.out.println("Kategoriaksi valittu: " + category);
-            int categoryCode = checkCategory(category);
+            int categoryCode = guiHelper.checkCategory(category);
 
             if (amount == 0) {
                 addingMessage.setText("Amount can't be 0");
                 addingMessage.setTextFill(Color.RED);
                 amountTextField.clear();
             }
+//            Date date = new Date(year, month, day);
 
             Event event = new Event(amount, id);
+            event.setTime(month, year);
             event.setCategory(categoryCode);
+
             try {
                 if (budService.addEvent(event)) {
                     signedInUser = budService.updateUserInfo(signedInUser.getUsername());
                     accountBalance.setText("Balance: " + signedInUser.getAccountBalance());
                     primaryStage.setTitle("BudgetingApp");
+                    createEventScroller();
                     pieChart = createChart();
-                    mainPane.setCenter(pieChart);
+                    eventsAndPiePane.getChildren().remove(pieChart);
+                    eventsAndPiePane.add(pieChart, 0, 0);
                     primaryStage.setScene(signedIn);
                 }
 
@@ -330,46 +457,67 @@ public class BudgetingUi extends Application {
         amountPane.setPadding(new Insets(10));
         amountPane.getChildren().addAll(amountLabel, amountTextField);
         buttonPane.getChildren().addAll(addEvent, addingMessage);
-        newEventPane.getChildren().addAll(amountPane, categoryOptions, buttonPane);
+        newEventPane.getChildren().addAll(amountPane, DateOptions, categoryOptions, buttonPane);
         newEventScene = new Scene(newEventPane, 250, 200);
         primaryStage.setScene(newEventScene);
 
     }
 
-    public int checkCategory(String category) {
-        if (category.contains("living")) {
-            return 1;
-        }
-        if (category.contains("food")) {
-            return 2;
-        }
-        if (category.contains("goods")) {
-            return 3;
-
-        }
-        if (category.contains("spare")) {
-            return 4;
-        }
-        return 0;
-
-    }
-
-    public List getEvents(int id) {
-        List<Event> ev = new ArrayList<>();
-        ev = budService.getEvents();
-        return ev;
-    }
 //    public PieChart updateChart(){
 //    }
+    public void createMonthlyScroller(int id, String month, int year) throws SQLException {
+        int monthNum = guiHelper.checkMonth(month);
+        List<Event> list = budService.getMonthlyEvents(id, monthNum, year);
+        listView.getItems().clear();
 
-    public PieChart createChart() throws SQLException {
+        listView.setPrefSize(350, 250);
+        listView.setEditable(true);
+
+        Account a = signedInUser.getAccount();
+        System.out.println(eventsList);
+
+        double amount;
+        Event ev;
+        for (int i = 0; i < list.size(); i++) {
+            Event event = list.get(i);
+            items.add(createEventElement(event));
+        }
+        listView.setItems(items);
+        eventScroller.setContent(listView);
+    }
+
+    public void createEventScroller() throws SQLException {
+        listView.getItems().clear();
+
+        listView.setPrefSize(350, 250);
+        listView.setEditable(true);
+
+        signedInUser = budService.updateUserInfo(signedInUser.getUsername());
+        Account a = signedInUser.getAccount();
+        eventsList = budService.getEvents(signedInUser.getId());
+        System.out.println(eventsList);
+
+        double amount;
+        Event ev;
+        for (int i = 0; i < eventsList.size(); i++) {
+            Event event = eventsList.get(i);
+            items.add(createEventElement(event));
+        }
+        listView.setItems(items);
+    }
+
+    public PieChart createMonthlyChart(int id, String month, int year) throws SQLException {
+
         PieChart empty = new PieChart();
 
         if (signedInUser == null) {
             return empty;
         }
-        List<Double> list = budService.getCategoryAmounts(signedInAccount);
+        int monthNum = guiHelper.checkMonth(month);
 
+        System.out.println("id, kuukausi ja vuosi: " + id + " " + month + " " + monthNum + " " + year);
+        List<Double> list = budService.getMonthlyCategoryAmounts(signedInUser.getId(), monthNum, year);
+        System.out.println(list + "kuukauden tapahtumat");
         double living = list.get(0);
         double food = list.get(1);
         double goods = list.get(2);
@@ -388,10 +536,68 @@ public class BudgetingUi extends Application {
                         new PieChart.Data("Goods", goods),
                         new PieChart.Data("Spare time", spareTime));
         // new PieChart.Data("Apples", 30));
+
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Consumption in " + month + " " + year);
+
+        return chart;
+
+    }
+
+    public PieChart createChart() throws SQLException {
+        PieChart empty = new PieChart();
+        eventsAndPiePane.getChildren().remove(pieChart);
+        if (signedInUser == null) {
+            return empty;
+        }
+        List<Double> list = budService.getCategoryAmounts(signedInAccount);
+
+        double living = list.get(0);
+        double food = list.get(1);
+        double goods = list.get(2);
+        double spareTime = list.get(3);
+
+        int all = list.size();
+
+        if (all == 0) {
+            return empty;
+        }
+
+        ObservableList<PieChart.Data> pieChartData
+                = FXCollections.observableArrayList(
+                        new PieChart.Data("Living, " + living + " €", living),
+                        new PieChart.Data("Food, " + food + " €", food),
+                        new PieChart.Data("Goods, " + goods + " €", goods),
+                        new PieChart.Data("Spare time, " + spareTime + " €", spareTime));
+        // new PieChart.Data("Apples", 30));
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Consumption");
 
         return chart;
 
+    }
+
+    public HBox createEventElement(Event e) {
+        HBox element = new HBox();
+        element.setSpacing(10);
+
+        String category = guiHelper.getCategory(e.getCategory());
+
+        Label amountLabel = new Label(e.getAmount() + "");
+        Label timeLabel = new Label(e.getMonth() + "/" + e.getYear());
+        Label categoryLabel = new Label(category);
+
+        if (e.getCategory() != 0) {
+            amountLabel.setTextFill(Color.RED);
+        } else {
+            amountLabel.setTextFill(Color.GREEN);
+
+        }
+
+        element.getChildren().add(amountLabel);
+        element.getChildren().add(timeLabel);
+        element.getChildren().add(categoryLabel);
+
+        return element;
     }
 }
