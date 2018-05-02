@@ -443,8 +443,9 @@ public class BudgetingUi extends Application {
                     accountBalance.setText("Balance: " + signedInUser.getAccountBalance());
                     primaryStage.setTitle("BudgetingApp");
                     createEventScroller();
-                    pieChart = createChart();
+                    pieChart = null;
                     eventsAndPiePane.getChildren().remove(pieChart);
+                    pieChart = createChart();
                     eventsAndPiePane.add(pieChart, 0, 0);
                     primaryStage.setScene(signedIn);
                 }
