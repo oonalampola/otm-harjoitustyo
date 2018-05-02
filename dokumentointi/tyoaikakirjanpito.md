@@ -13,5 +13,6 @@
 22.4. | 4 | Tapahtumien lisäämistä parannettu, menojen graafisen esitystavan toteutus aloitettu
 23.4. | 6 | Graafinen esitystapa toteutettu, testejä lisätty
 24.4. | 3 | Dao-luokkien ja BudgetingServicen testaus aloitettu
-**yht.** | 42 |
+27.4. | 6 | Lisätty mahdollisuus tarkastella menoja kuukausitasolla
+**yht.** | 51 |
 
