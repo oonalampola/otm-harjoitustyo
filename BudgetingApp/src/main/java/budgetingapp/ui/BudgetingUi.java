@@ -32,6 +32,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -104,7 +105,7 @@ public class BudgetingUi extends Application {
 
         Button logoutButton = new Button("Sign out");
         Button newEventBut = new Button("Add new event");
-        
+
         //Toimivat, mutta eivät vielä päivitä suoraan
         Button deleteButton = new Button("Delete all events");
         Button clearBalance = new Button("Clear balance");
@@ -181,7 +182,7 @@ public class BudgetingUi extends Application {
         bottomMenuPane.getChildren().addAll(chooseTime, months, years, showThisMonth, showAllEvents);
 
         signedIn = new Scene(mainPane, 700, 300);
-        showAllEvents.setOnAction(e-> {
+        showAllEvents.setOnAction(e -> {
             eventsAndPiePane.getChildren().remove(pieChart);
             try {
                 pieChart = createChart();
@@ -194,7 +195,7 @@ public class BudgetingUi extends Application {
             } catch (SQLException ex) {
                 Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
         showThisMonth.setOnAction(e -> {
             eventsAndPiePane.getChildren().removeAll(pieChart, eventScroller);
@@ -215,6 +216,8 @@ public class BudgetingUi extends Application {
 
         eventScroller.setMaxWidth(350);
         eventScroller.setMinWidth(350);
+        listView.setPrefSize(350, 250);
+        listView.setEditable(true);
 
         signInPane.setPadding(new Insets(10));
         Label loginLabel = new Label("Username");
@@ -247,6 +250,7 @@ public class BudgetingUi extends Application {
                     if (pieChart == null) {
                         pieChart = createChart();
                     }
+                    createEventScroller();
                     mainPane.setCenter(eventsAndPiePane);
                     eventsAndPiePane.add(pieChart, 0, 0);
                     eventsAndPiePane.add(eventScroller, 1, 0);
@@ -260,17 +264,16 @@ public class BudgetingUi extends Application {
                     eventsList = budService.getEvents(signedInUser.getId());
                     System.out.println(eventsList);
 
-                    double amount;
-                    Event ev;
-                    for (int i = 0; i < eventsList.size(); i++) {
-                        Event event = eventsList.get(i);
-                        items.add(createEventElement(event));
-                    }
-                    listView.getItems().clear();
-                    listView.setItems(items);
-
-                    eventScroller.setContent(listView);
-
+//                    double amount;
+//                    Event ev;
+//                    for (int i = 0; i < eventsList.size(); i++) {
+//                        Event event = eventsList.get(i);
+//                        items.add(createEventElement(event));
+//                    }
+//                    listView.getItems().clear();
+//                    listView.setItems(items);
+//
+//                    eventScroller.setContent(listView);
                 } else {
                     signInMessage.setText("Username not found");
                     signInMessage.setTextFill(Color.RED);
@@ -361,7 +364,8 @@ public class BudgetingUi extends Application {
         HBox amountPane = new HBox(10);
         HBox DateOptions = new HBox(10);
         HBox buttonPane = new HBox(10);
-
+        HBox cancelButtonPane = new HBox(10);
+        
         //Kategoriaa varten
         ObservableList<String> options
                 = FXCollections.observableArrayList(
@@ -413,7 +417,13 @@ public class BudgetingUi extends Application {
         DateOptions.getChildren().addAll(months, years);
 
         Button addEvent = new Button("Add!");
+        Button goBackButton = new Button("Cancel");
         Label addingMessage = new Label();
+        
+        goBackButton.setOnAction(e1 ->{
+           primaryStage.setScene(signedIn); 
+        });
+        
         addEvent.setOnAction(e -> {
 
             int id = signedInUser.getId();
@@ -455,10 +465,12 @@ public class BudgetingUi extends Application {
             }
 
         });
+        
         amountPane.setPadding(new Insets(10));
         amountPane.getChildren().addAll(amountLabel, amountTextField);
         buttonPane.getChildren().addAll(addEvent, addingMessage);
-        newEventPane.getChildren().addAll(amountPane, DateOptions, categoryOptions, buttonPane);
+        cancelButtonPane.getChildren().add(goBackButton); 
+        newEventPane.getChildren().addAll(amountPane, DateOptions, categoryOptions, buttonPane, cancelButtonPane);
         newEventScene = new Scene(newEventPane, 250, 200);
         primaryStage.setScene(newEventScene);
 
@@ -505,6 +517,8 @@ public class BudgetingUi extends Application {
             items.add(createEventElement(event));
         }
         listView.setItems(items);
+        eventScroller.setContent(listView);
+
     }
 
     public PieChart createMonthlyChart(int id, String month, int year) throws SQLException {
@@ -531,13 +545,30 @@ public class BudgetingUi extends Application {
         }
 
         ObservableList<PieChart.Data> pieChartData
-                = FXCollections.observableArrayList(
-                        new PieChart.Data("Living", living),
-                        new PieChart.Data("Food", food),
-                        new PieChart.Data("Goods", goods),
-                        new PieChart.Data("Spare time", spareTime));
-        // new PieChart.Data("Apples", 30));
+                = FXCollections.observableArrayList();
+//        
+//                        new PieChart.Data("Living", living),
+//                        new PieChart.Data("Food", food),
+//                        new PieChart.Data("Goods", goods),
+//                        new PieChart.Data("Spare time", spareTime));
+//        // new PieChart.Data("Apples", 30));
 
+        if (living > 0) {
+            Data data = new PieChart.Data("Living, " + living + " €", living);
+            pieChartData.add(data);
+        }
+        if (food > 0) {
+            Data data = new PieChart.Data("Food, " + food + " €", food);
+            pieChartData.add(data);
+        }
+        if (goods > 0) {
+            Data data = new PieChart.Data("Goods, " + goods + " €", goods);
+            pieChartData.add(data);
+        }
+        if (spareTime > 0) {
+            Data data = new PieChart.Data("Spare time, " + spareTime + " €", spareTime);
+            pieChartData.add(data);
+        }
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Consumption in " + month + " " + year);
 
@@ -565,12 +596,28 @@ public class BudgetingUi extends Application {
         }
 
         ObservableList<PieChart.Data> pieChartData
-                = FXCollections.observableArrayList(
-                        new PieChart.Data("Living, " + living + " €", living),
-                        new PieChart.Data("Food, " + food + " €", food),
-                        new PieChart.Data("Goods, " + goods + " €", goods),
-                        new PieChart.Data("Spare time, " + spareTime + " €", spareTime));
-        // new PieChart.Data("Apples", 30));
+                = FXCollections.observableArrayList();
+
+        if (living != 0) {
+            Data data = new PieChart.Data("Living, " + living + " €", living);
+            pieChartData.add(data);
+
+        }
+        if (food != 0) {
+            Data data = new PieChart.Data("Food, " + food + " €", food);
+            pieChartData.add(data);
+        }
+        if (goods != 0) {
+            Data data = new PieChart.Data("Goods, " + goods + " €", goods);
+            pieChartData.add(data);
+
+        }
+        if (spareTime != 0) {
+            Data data = new PieChart.Data("Spare time, " + spareTime + " €", spareTime);
+            pieChartData.add(data);
+
+        }
+
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Consumption");
 
