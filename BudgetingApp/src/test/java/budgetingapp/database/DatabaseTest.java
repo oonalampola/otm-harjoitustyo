@@ -19,30 +19,29 @@ import static org.junit.Assert.*;
  * @author iskä
  */
 public class DatabaseTest {
-    UserDao userDao;
-    AccountDao accountDao;
+
     Database database;
-    
+
     public DatabaseTest() {
-        
+
     }
-    void beforeEach(){
-        
+
+    void beforeEach() {
+
     }
-    
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }

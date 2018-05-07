@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author iskä
  */
-public class ÉventTest {
+public class EventTest {
     Event event;
-    public ÉventTest() {
+    public EventTest() {
     }
     
     @BeforeClass
