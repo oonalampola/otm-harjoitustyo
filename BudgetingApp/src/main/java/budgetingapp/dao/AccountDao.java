@@ -21,6 +21,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 /**
+ * Luokka etsii ja palauttaa tileihin ja tapahtumiin liittyviä tietoja
+ * tietokannasta
  *
  * @author oona
  */
@@ -29,10 +31,20 @@ public class AccountDao implements Dao<Account, Integer> {
     Database database;
     Date date;
 
+    /**
+     * Luo AccountDao-olion
+     *
+     * @param database Tietokanta, jota luokka tarkastelee
+     */
     public AccountDao(Database database) {
         this.database = database;
     }
 
+    /**
+     * Uuden käyttäjätilin luominen
+     *
+     * @param userId Tiliin liittyvän käyttäjän id
+     */
     public void createNewAccount(int userId) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("INSERT INTO Account (user_id, balance) VALUES (?, ?)");
@@ -43,6 +55,12 @@ public class AccountDao implements Dao<Account, Integer> {
         c.close();
     }
 
+    /**
+     * Käyttäjätilin etsiminen id:n avulla
+     *
+     * @param id Käyttäjän ja tilin yhteen liittävä id (käyttäjän id)
+     * @return Account-olio, joka liittyy haettuun id:n
+     */
     public Account findByUserId(int id) throws SQLException {
 
         Connection c = database.getConnection();
@@ -71,6 +89,12 @@ public class AccountDao implements Dao<Account, Integer> {
         return a;
     }
 
+    /**
+     * Käyttäjätiliin liittyvien tapahtumien hakeminen
+     *
+     * @param id Käyttäjän ja tilin yhteen liittävä id
+     * @return Lista Event-olioita, jotka liittyvät haettuun id:n
+     */
     public List findAccountEvents(int id) throws SQLException {
 
         List<Event> list = new ArrayList<>();
@@ -92,6 +116,13 @@ public class AccountDao implements Dao<Account, Integer> {
         return list;
     }
 
+    /**
+     * Tapahtuman lisääminen tilille
+     *
+     * @param e Event-olio, tapahtuma, joka halutaan liittää tiliin
+     * @return true, jos lisääminen onnistui ja false, jos lisääminen
+     * epäonnistui
+     */
     public boolean addEvent(Event e) throws SQLException {
 
         Connection c = database.getConnection();
@@ -120,16 +151,11 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
-    @Override
-    public Account findOne(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Account> findAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Uuden tilin lisääminen tietokantaan
+     *
+     * @param a Account-olio, joka halutaan lisättävän
+     */
     @Override
     public void save(Account a) throws SQLException {
         Connection c = database.getConnection();
@@ -148,6 +174,11 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    /**
+     * Tilin poistaminen tietokannasta
+     *
+     * @param key id, joka halutaan poistaa
+     */
     @Override
     public void delete(Integer key) throws SQLException {
         if (findByUserId(key) != null) {
@@ -160,6 +191,14 @@ public class AccountDao implements Dao<Account, Integer> {
         }
     }
 
+    /**
+     * Tilin saldon päivittäminen
+     *
+     * @param a Account-olio, tili, jonka saldo halutaan muuttaa
+     * @param amount Summa, jonka verran saldoa halutaan muuttaa
+     *
+     * @return Account-olio, jonka saldo on päivitetty
+     */
     public Account updateBalance(Account a, double amount) throws SQLException {
         double updatedBalance = a.getBalance() + amount;
 
@@ -177,6 +216,12 @@ public class AccountDao implements Dao<Account, Integer> {
         return a;
     }
 
+    /**
+     * Kategorioihin liittyvien tapahtumien summien yhteenlaskeminen
+     *
+     * @param a Account-olio, tili, jonka summat halutaan laskea kategorioittain
+     * @return Lista, joka sisältää kategorioiden summat lisäämisjärjestyksessä
+     */
     public List<Double> countCategories(Account a) throws SQLException {
 
         List<Double> amounts = new ArrayList<>();
@@ -189,6 +234,12 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    /**
+     * Kategorian 1 eli asumiskustannusten laskeminen
+     *
+     * @param a Account-olio, tili, jonka asumiskustannukset halutaan laskea
+     * @return Asumiskustannuksien yhteenlaskettu summa
+     */
     public double countLiving(Account a) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 1 AND account_id = ?");
@@ -210,6 +261,12 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 2 eli ruokakustannuksien laskeminen
+     *
+     * @param a Account-olio, tili, jonka ruokakustannukset halutaan laskea
+     * @return Ruokakustannuksien yhteenlaskettu summa
+     */
     public double countFood(Account a) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 2 AND account_id = ?");
@@ -229,6 +286,12 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 3 eli hyödykekustannusten laskeminen
+     *
+     * @param a Account-olio, tili, jonka hyödykekustannukset halutaan laskea
+     * @return Hyödykekustannuksien yhteenlaskettu summa
+     */
     public double countGoods(Account a) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 3 AND account_id = ?");
@@ -249,6 +312,13 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 4 eli vapaa-ajan kustannusten laskeminen
+     *
+     * @param a Account-olio, tili, jonka vapaa-ajan kustannukset halutaan
+     * laskea
+     * @return Vapaa-ajan kustannuksien yhteenlaskettu summa
+     */
     public double countSpareTime(Account a) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 4 AND account_id = ?");
@@ -269,6 +339,11 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Tapahtumien poistaminen yhdeltä tililtä
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     */
     public void deleteEvents(int id) throws SQLException {
 
         Connection c = database.getConnection();
@@ -283,6 +358,11 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    /**
+     * Saldon nollaaminen
+     *
+     * @param a Account-olio, tili, jonka saldo halutaan nollata
+     */
     public void clearBalance(Account a) throws SQLException {
 
         Connection c = database.getConnection();
@@ -298,6 +378,15 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    /**
+     * Tapahtumien etsiminen kuukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     *
+     * @return Lista, joka sisältää Event-olioita
+     */
     public List getMonthlyEvents(int id, int month, int year) throws SQLException {
 
         List<Event> list = new ArrayList<>();
@@ -322,6 +411,16 @@ public class AccountDao implements Dao<Account, Integer> {
 
     }
 
+    /**
+     * Kategorioihin liittyvien tapahtumien summien yhteenlaskeminen
+     * kuukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     * @return Lista, joka sisältää kategorioiden summat lisäämisjärjestyksessä
+     * halutulla kuukausitasolla
+     */
     public List<Double> countMonthlyCategories(int id, int month, int year) throws SQLException {
         List<Double> amounts = new ArrayList<>();
         amounts.clear();
@@ -333,6 +432,15 @@ public class AccountDao implements Dao<Account, Integer> {
         return amounts;
     }
 
+    /**
+     * Kategorian 1 eli asumiskustannusten laskeminen kukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     *
+     * @return Asumiskustannuksien yhteenlaskettu summa annetuilla aikamääreillä
+     */
     public double countMonthlyLiving(int id, int month, int year) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 1 AND account_id = ? AND month = ? AND year = ?");
@@ -355,6 +463,14 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 2 eli ruokakustannusten laskeminen kukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     * @return Ruokakustannuksien yhteenlaskettu summa annetuilla aikamääreillä
+     */
     public double countMonthlyFood(int id, int month, int year) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 2 AND account_id = ? AND month = ? AND year = ?");
@@ -377,10 +493,19 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 3 eli hyödykekustannusten laskeminen kukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     * @return Hyödykekustannuksien yhteenlaskettu summa annetuilla
+     * aikamääreillä
+     */
     public double countMonthlyGoods(int id, int month, int year) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 3 AND account_id = ? AND month = ? AND year = ?");
-        
+
         stmt2.setInt(1, id);
         stmt2.setInt(2, month);
         stmt2.setInt(3, year);
@@ -399,6 +524,15 @@ public class AccountDao implements Dao<Account, Integer> {
         return amount;
     }
 
+    /**
+     * Kategorian 4 eli Vapaa-ajan kustannusten laskeminen kukausitasolla
+     *
+     * @param id Tiliin ja käyttäjään liittyvä id
+     * @param month kuukausi
+     * @param year vuosi
+     * @return Vapaa-ajan kustannuksien yhteenlaskettu summa annetuilla
+     * aikamääreillä
+     */
     public double countMonthlySpareTime(int id, int month, int year) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt2 = c.prepareStatement("SELECT SUM(amount) FROM Event WHERE category = 4 AND account_id = ? AND month = ? AND year = ?");
@@ -413,7 +547,7 @@ public class AccountDao implements Dao<Account, Integer> {
             return 0;
         }
         double amount = rs.getDouble(1);
-        System.out.println("Spare time monthly " +amount);
+        System.out.println("Spare time monthly " + amount);
         stmt2.close();
         rs.close();
         c.close();

@@ -13,6 +13,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
+ * Luokka etsii ja palauttaa käyttäviin liittyviä tietoja tietokannasta
  *
  * @author oona
  */
@@ -21,17 +22,24 @@ public class UserDao implements Dao<User, Integer> {
     private Database database;
     private AccountDao accountDao;
 
+    /**
+     * Luo UserDao-olion
+     *
+     * @param database Tietokanta, jota luokka tarkastelee
+     */
     public UserDao(Database database) {
         this.database = database;
         this.accountDao = new AccountDao(database);
     }
 
 //EI TOTEUTETTU
-    @Override
-    public User findOne(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Käyttäjän etsiminen käyttäjänimen perusteella
+     *
+     * @param username käyttäjänimi
+     * @return User-olio, joka sisältää löydetyn käyttäjän tiedot
+     * @throws SQLException
+     */
     public User findByUsername(String username) throws SQLException {
         Connection c = database.getConnection();
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM User WHERE username = ?");
@@ -57,12 +65,12 @@ public class UserDao implements Dao<User, Integer> {
         return user;
     }
 
-//EI TOTEUTETTU
-    @Override
-    public List<User> findAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Käyttäjän lisääminen tietokantaan
+     *
+     * @param user User-olio, joka sisältää tarvittavat tiedot
+     * @throws SQLException
+     */
     @Override
     public void save(User user) throws SQLException {
         Connection c = database.getConnection();
@@ -87,6 +95,12 @@ public class UserDao implements Dao<User, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Käyttäjän poistaminen tietokannasta käyttäjänimen avulla
+     *
+     * @param username käyttäjänimi
+     * @throws SQLException
+     */
     public void delete(String username) throws SQLException {
         if (findByUsername(username) != null) {
             Connection c = database.getConnection();

@@ -10,14 +10,11 @@ import java.sql.*;
 import java.util.*;
 
 /**
+ * Rajapinta, jonka UserDao ja AccountDao toteuttavat
  *
  * @author oona
  */
 public interface Dao<T, K> {
-
-    T findOne(K key) throws SQLException;
-
-    List<T> findAll() throws SQLException;
 
     void save(T object) throws SQLException;
 

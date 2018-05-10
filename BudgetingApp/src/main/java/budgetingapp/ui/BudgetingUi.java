@@ -14,22 +14,15 @@ import budgetingapp.domain.BudgetingService;
 import budgetingapp.domain.Event;
 import budgetingapp.domain.User;
 import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
@@ -255,7 +248,7 @@ public class BudgetingUi extends Application {
                     eventsAndPiePane.add(pieChart, 0, 0);
                     eventsAndPiePane.add(eventScroller, 1, 0);
 
-//Tapahtumat 
+//Events 
                     listView.setPrefSize(350, 250);
                     listView.setEditable(true);
 
@@ -365,7 +358,7 @@ public class BudgetingUi extends Application {
         HBox DateOptions = new HBox(10);
         HBox buttonPane = new HBox(10);
         HBox cancelButtonPane = new HBox(10);
-        
+
         //Kategoriaa varten
         ObservableList<String> options
                 = FXCollections.observableArrayList(
@@ -419,11 +412,11 @@ public class BudgetingUi extends Application {
         Button addEvent = new Button("Add!");
         Button goBackButton = new Button("Cancel");
         Label addingMessage = new Label();
-        
-        goBackButton.setOnAction(e1 ->{
-           primaryStage.setScene(signedIn); 
+
+        goBackButton.setOnAction(e1 -> {
+            primaryStage.setScene(signedIn);
         });
-        
+
         addEvent.setOnAction(e -> {
 
             int id = signedInUser.getId();
@@ -465,11 +458,11 @@ public class BudgetingUi extends Application {
             }
 
         });
-        
+
         amountPane.setPadding(new Insets(10));
         amountPane.getChildren().addAll(amountLabel, amountTextField);
         buttonPane.getChildren().addAll(addEvent, addingMessage);
-        cancelButtonPane.getChildren().add(goBackButton); 
+        cancelButtonPane.getChildren().add(goBackButton);
         newEventPane.getChildren().addAll(amountPane, DateOptions, categoryOptions, buttonPane, cancelButtonPane);
         newEventScene = new Scene(newEventPane, 250, 200);
         primaryStage.setScene(newEventScene);
@@ -546,12 +539,7 @@ public class BudgetingUi extends Application {
 
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList();
-//        
-//                        new PieChart.Data("Living", living),
-//                        new PieChart.Data("Food", food),
-//                        new PieChart.Data("Goods", goods),
-//                        new PieChart.Data("Spare time", spareTime));
-//        // new PieChart.Data("Apples", 30));
+
 
         if (living > 0) {
             Data data = new PieChart.Data("Living, " + living + " €", living);

@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
+ * Luokka kuvaa tapahtumista luotavia Event-olioita
  *
  * @author oona
  */
@@ -21,6 +22,12 @@ public class Event {
     private int month;
     private int year;
 
+    /**
+     * Luo Event-olion
+     *
+     * @param amount summa
+     * @param accountId tiliin liittyvä id
+     */
     public Event(double amount, int accountId) {
 
         this.amount = amount;
@@ -28,21 +35,46 @@ public class Event {
         this.accountId = accountId;
     }
 
+    /**
+     * Luo Event-olion (varmaankin turha)
+     *
+     * @param id
+     * @param amount
+     * @param accountId
+     */
     public Event(int id, double amount, int accountId) {
         this.id = id;
         this.amount = amount;
         this.category = 0;
         this.accountId = accountId;
-        
+
     }
-    public void setTime(int month, int year){
+
+    /**
+     * Ajan asettaminen
+     *
+     * @param month kuukausi
+     * @param year vuosi
+     */
+    public void setTime(int month, int year) {
         this.month = month;
         this.year = year;
     }
+
+    /**
+     * Kategorian asettaminen
+     *
+     * @param category kategorian tnnus
+     */
     public void setCategory(int category) {
         this.category = category;
     }
 
+    /**
+     * Id:n asettaminen
+     *
+     * @param id id
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -52,21 +84,48 @@ public class Event {
 
     }
 
+    /**
+     * Summan palauttaminen
+     *
+     * @return tapahtumaan liittyvä summa doublena
+     */
     public double getAmount() {
         return this.amount;
     }
 
+    /**
+     * Tiliin liittyvän id:n palauttaminen
+     *
+     * @return id
+     */
     public int getAccountId() {
         return this.accountId;
     }
 
+    /**
+     * Ktegorian tunnuksen palauttaminen
+     *
+     * @return category int-muotoisena
+     */
     public int getCategory() {
         return this.category;
     }
-    public int getMonth(){
+
+    /**
+     * Kuukauden palauttaminen
+     *
+     * @return month int-muotoisena
+     */
+    public int getMonth() {
         return this.month;
     }
-    public int getYear(){
+
+    /**
+     * Vuoden palauttaminen
+     *
+     * @return year int-muotoisena
+     */
+    public int getYear() {
         return this.year;
     }
 
