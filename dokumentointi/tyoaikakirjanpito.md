@@ -14,5 +14,10 @@
 23.4. | 6 | Graafinen esitystapa toteutettu, testejä lisätty
 24.4. | 3 | Dao-luokkien ja BudgetingServicen testaus aloitettu
 27.4. | 6 | Lisätty mahdollisuus tarkastella menoja kuukausitasolla
-**yht.** | 51 |
+2.5. | 4 | Käyttöliittymän bugien korjailua, sekvenssikaavio tehty
+3.5. | 2 | Käyttöliittymän parantelua, paluu-nappien lisääminen yms.
+7.5. | 3 | Testauksen jatkamista
+9.5. | 1 | JavaDoc aloitettu
+10.5. | 6 | JavaDoc toteutettu kokonaan ja testaaminen jatkuu
+**yht.** | 67 |
 
