@@ -1,4 +1,4 @@
-<h1>Vaatimusmäärittely</h1>
+<h1>Vaatimusmäärittely</h1> 
 
 <h2>Sovelluksen tarkoitus</h2>
 
@@ -24,9 +24,8 @@ Sovelluksessa on yhdenlaisia käyttäjiä, joiden käyttöoikeudet rajoittuvat h
 <h3>Kirjautumisen jälkeen</h3>
 
 - Käyttäjä näkee omat tulonsa ja menonsa sekä käytettävissään olevan rahamäärän
-- Käyttäjä voi lisätä tietoihinsa tuloja, kuten palkan tai opintotuen
+- Käyttäjä voi lisätä tietoihinsa tuloja
 - Käyttäjä voi lisätä menoja, jotka voi asettaa tiettyyn kategoriaan 
-- Käyttäjä voi asettaa itselleen kuukausibudjetin
 - Käyttäjä voi tarkastella tietoja kalenterikuukausittain
 - Graafinen esitys kuukauden menojen jakautumisesta
 
@@ -39,4 +38,5 @@ Ideoita sovelluksen jatkokehitykseen
 - Tallennettujen tietojen poistaminen
 - Käyttäjätilin poistaminen tietoineen
 - Yhteiskäyttäjien luominen esim. samassa taloudessa asuville yhteisen talouden budjetointia varten
+- Kuukausibudjetin asettaminen, menojen suunnittelu etukäteen
 
