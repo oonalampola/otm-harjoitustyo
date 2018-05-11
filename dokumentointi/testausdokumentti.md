@@ -22,7 +22,7 @@ Database-luokan kykyä luoda tietokanta testataan omassa testausluokassaan. Test
 ### Testikattavuus
 
 Käyttöliittymäluokkaa lukuun ottamatta sovelluksen testien rivikattavuus on 93% ja haarautumakattavuus 71%.
-<img src="https://raw.githubusercontent.com/mluukkai/OtmTodoApp/master/dokumentaatio/kuvat/t-1.png" width="800">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/testikattavuus.PNG">
 
 
 ### Asennus ja konfigurointi
