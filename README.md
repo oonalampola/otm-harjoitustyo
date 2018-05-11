@@ -14,7 +14,7 @@
 
 [Viikko 5](https://github.com/oonalampola/otm-harjoitustyo/releases/tag/viikko5)
 
-[Loppupalautus](]https://github.com/oonalampola/otm-harjoitustyo/releases/tag/loppupalautus)
+[Loppupalautus](https://github.com/oonalampola/otm-harjoitustyo/releases/tag/loppupalautus)
 
 <h2>Komentorivitoiminnot</h2>
 
