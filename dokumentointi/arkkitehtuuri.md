@@ -27,7 +27,7 @@ Käyttöliittymä sisältää metodeita, joiden avulla luodaan sisältö graafis
 
 Sovelluksen logiikkamallin muodostavat luokat User, Account ja Event
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/LUOKAT.png" width="450">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/LUOKAT.png" width="500">
 
 Sovelluksen toiminnallisuudesta vastaa yksi BudgetingService-olio. Se tarjoaa metodeja käyttäjien, tilien ja tapahtumien hallintaan. Metodeja ovat mm.
 
@@ -97,6 +97,7 @@ SELECT * FROM Event WHERE account_id=1;
 34.0|5|2018|3|1
 550.0|5|2018|1|1
 ```
+Hakutoiminnallisuuksissa hyödynnetään myös esimerkiksi ORDER BY-toimintoa, jolla tuloksia järjestetään kuukauden ja vuoden mukaiseen järjestykseen.
 
 <h2>Päätoiminnallisuudet</h2>
 
@@ -132,4 +133,4 @@ Toiminnallisuudet, kuten tapahtumien poistaminen ja saldon nollaaminen tapahtuva
 
 Käyttöliittymän toteuttavasta koodista tuli todella pitkä ja joiltakin osilta jopa sekava. Ohjelma pyörii tällä hetkellä, mutta jatkokehityksen kannalta paljon selkeämmäksi alusta asti luotu käyttöliittymän koodi helpottaisi sen muokkaamista. _GuiHelper_-luokka luotiin tätä tarkoitusta ajatellen, mutta toteutus jäi vajaaksi.
 
-Dao-luokkien toteuttama rakapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä Account- että Event-taulujen hallintaa. 
+_Dao_-luokkien toteuttama rajapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä _Account_- että _Event_-taulujen hallintaa. 
