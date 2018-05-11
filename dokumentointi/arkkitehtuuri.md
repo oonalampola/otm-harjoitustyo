@@ -137,4 +137,4 @@ Käyttöliittymän toteuttavasta koodista tuli todella pitkä ja joiltakin osilt
 
 <h3>DAO</h3>
 
-_Dao_-luokkien toteuttama rajapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä _Account_- että _Event_-taulujen hallintaa. 
+_Dao_-luokkien toteuttama rajapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi voinut jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä _Account_- että _Event_-taulujen hallintaa. 
