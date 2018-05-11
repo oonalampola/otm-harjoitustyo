@@ -39,4 +39,6 @@ Ideoita sovelluksen jatkokehitykseen
 - Käyttäjätilin poistaminen tietoineen
 - Yhteiskäyttäjien luominen esim. samassa taloudessa asuville yhteisen talouden budjetointia varten
 - Kuukausibudjetin asettaminen, menojen suunnittelu etukäteen
+- Kategorioiden määrittely vapaasti
+- Kulu- ja tuloerien vapaamuotoinen kommentointi
 
