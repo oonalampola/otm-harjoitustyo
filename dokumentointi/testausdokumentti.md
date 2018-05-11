@@ -15,7 +15,7 @@ Niiden määrittelevät testitapaukset simuloivat niiden päätoiminnallisuuksia
 
 Dao-luokkien toiminnalisuutta on testattu luomalla testaustietokanta test.db. Tietokantaan tallennetaan ja sieltä haetaan tietoa DAO-luokkien metodien avulla ja testataan thakujen tuloksia.
 
-###Database
+### Database
 
 Database-luokan kykyä luoda tietokanta testataan omassa testausluokassaan. Testiluokassa luodaan ja poistetaan tietokantaa test.db, sekä testataan Database-luokan tarjoamaa init()-metodia.
 
