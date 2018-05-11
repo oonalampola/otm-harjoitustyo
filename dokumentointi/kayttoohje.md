@@ -11,7 +11,7 @@ Ohjelma luo ajettaessa automaattisesti tarvittavan tietokannan tauluineen.
 Ohjelma käynnistetään komennolla 
 
 ```
-java -jar budgetingapp.jar
+java -jar BudgetingApp.jar
 ```
 
 ## Kirjautuminen
@@ -26,7 +26,7 @@ Sovellukseen kirjaudutaan kirjoittamalla syötekenttään käyttäjätunnus ja p
 
 Aloitusnäkymästä pääsee luomaan uuden käyttäjän klikkaamalla _Create new user_.
 
-Kirjoittamalla kenttiin tarvittavat tiedot, voi uuden käyttäjän luoda painamalla _Create new user_.
+Kun kenttiin on kirjoitettu tarvittavat tiedot, voi uuden käyttäjän luoda painamalla _Create new user_.
 
 <img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusikayttisnakyma.PNG" width="400">
 
