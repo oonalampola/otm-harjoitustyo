@@ -13,7 +13,7 @@ Niiden määrittelevät testitapaukset simuloivat niiden päätoiminnallisuuksia
 
 ### DAO-luokat
 
-Dao-luokkien toiminnalisuutta on testattu luomalla testaustietokanta test.db. Tietokantaan tallennetaan ja sieltä haetaan tietoa DAO-luokkien metodien avulla ja testataan thakujen tuloksia.
+Dao-luokkien toiminnalisuutta on testattu luomalla testaustietokanta test.db. Tietokantaan tallennetaan ja sieltä haetaan tietoa DAO-luokkien metodien avulla ja testataan hakujen tuloksia.
 
 ### Database
 
