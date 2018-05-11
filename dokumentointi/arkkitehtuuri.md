@@ -50,14 +50,14 @@ Pakkauksen budgetingapp.dao luokat UserDao ja AccountDao huolehtivat tietojen ta
 
 ```
 CREATE TABLE User(
-	  id integer PRIMARY KEY, 
+	id integer PRIMARY KEY, 
   	name varchar(200), 
   	username varchar(200
  ```
  
  ```
 CREATE TABLE Account(
-	  user_id integer PRIMARY KEY, 
+	user_id integer PRIMARY KEY, 
    	balance float);
 
 ```
@@ -65,12 +65,38 @@ CREATE TABLE Account(
 ```
 CREATE TABLE Event(
   	amount float,
-	  month integer,
+	month integer,
   	year integer,
-	  category integer, 
+	category integer, 
   	account_id integer, 
-	  FOREIGN KEY (account_id) REFERENCES Account);
-	```
+	FOREIGN KEY (account_id) REFERENCES Account);
+```
+Kaikissa tauluissa hyödynnetään samaa tunnistetta eli id:tä, joka annetaan käyttäjälle automaattisesti luomisen yhteydessä.
+Lisäksi käyttäjiä haetaan monessa tilanteessa pelkällä käyttäjänimellä, koska ne ovat uniikkeja.
+
+Tapahtumien aika määritellään kuukausi- ja vuositasolla. Kategoriat erotetaan toisistaan pysyvillä tunnisteilla, jotka ovat:
+- 0 Tulo
+- 1 Asumiskustannukset
+- 2 Ruokakustannukset
+- 3 Hyödykekustannukset
+- 4 Vapaa-ajan kustannukset
+
+Tietokantataulusta haettaessa tulokset ovat seuraavanlaisia:
+```
+SELECT * FROM User WHERE username='testuser';
+Test User|testuser|1
+```
+```
+SELECT * FROM Account WHERE user_id=1;
+500.0|1
+```
+```
+SELECT * FROM Event WHERE account_id=1;
+2000|5|2018|0|1
+23.0|5|2018|2|1
+34.0|5|2018|3|1
+550.0|5|2018|1|1
+```
 
 <h2>Päätoiminnallisuudet</h2>
 
