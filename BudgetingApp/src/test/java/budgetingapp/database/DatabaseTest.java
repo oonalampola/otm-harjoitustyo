@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author iskä
+ * @author oona
  */
 public class DatabaseTest {
 
@@ -55,17 +55,6 @@ public class DatabaseTest {
 
     public void initializeDatabase(Connection c) throws SQLException {
 
-//        ArrayList<String> list = new ArrayList<>();
-//
-//        list.add("CREATE TABLE IF NOT EXISTS User(id integer PRIMARY KEY, name varchar(200), username varchar(200));");
-//        list.add("CREATE TABLE IF NOT EXISTS Account(user_id integer PRIMARY KEY, balance float)");
-//        list.add("CREATE TABLE IF NOT EXISTS Event(amount float, month integer, year integer, category integer, account_id integer, FOREIGN KEY (account_id) REFERENCES Account);");
-//
-//        for (int i = 0; i < list.size(); i++) {
-//            PreparedStatement stmt = c.prepareStatement(list.get(i));
-//            stmt.execute();
-//            stmt.close();
-//        }
         ArrayList<String> list2 = new ArrayList<>();
 
         list2.add("INSERT INTO User (id, name, username) VALUES (1, 'Test user', 'testuser')");
@@ -131,44 +120,12 @@ public class DatabaseTest {
                 + "PRIMARY KEY, name varchar(200), username varchar(200))", list.get(0));
 
         assertEquals("CREATE TABLE IF NOT EXISTS Account"
-                + "(user_id integer PRIMARY KEY, balance float)", list.get(1)); 
-        
+                + "(user_id integer PRIMARY KEY, balance float)", list.get(1));
+
         assertEquals("CREATE TABLE IF NOT EXISTS Event"
-                              + "(amount float, month integer, year integer, category integer, "
-                              + "account_id integer, FOREIGN KEY (account_id) REFERENCES Account)", list.get(2));
-        
-//        assertTrue(list.get(0).equals("CREATE TABLE IF NOT EXISTS User(id integer "
-                //                + "PRIMARY KEY, name varchar(200), username varchar(200))"));
-                //        assertTrue(list.get(1).equals("CREATE TABLE IF NOT EXISTS Account"
-                //                + "(user_id integer PRIMARY KEY, balance float)"));
-                //        assertTrue(list.get(2).equals ("CREATE TABLE IF NOT EXISTS Event"
-                //                + "(amount float, month integer, year integer, category integer, "
-                //                + "account_id integer, FOREIGN KEY (account_id) REFERENCES Account);"));
+                + "(amount float, month integer, year integer, category integer, "
+                + "account_id integer, FOREIGN KEY (account_id) REFERENCES Account)", list.get(2));
+
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() throws ClassNotFoundException, SQLException {
-
-        //  this.database = new Database("jdbc:sqlite:test.db");
-        //      Connection c = database.getConnection();
-//        initializeDatabase(c);
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

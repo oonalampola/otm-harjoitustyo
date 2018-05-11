@@ -24,8 +24,8 @@ public class BudgetingService {
     private UserDao userDao;
     private AccountDao accountDao;
     private Scanner scanner;
-    private User signedIn;
-    private Account account;
+    public User signedIn;
+    public Account account;
 
     /**
      * Luo BudgetingService-olion
@@ -78,7 +78,6 @@ public class BudgetingService {
         }
 
         int id = this.signedIn.getId();
-        //System.out.println(account);
         this.account = accountDao.findByUserId(id);
         signedIn.setAccount(this.account);
 
@@ -94,6 +93,9 @@ public class BudgetingService {
      */
     public User updateUserInfo(String username) throws SQLException {
         this.signedIn = userDao.findByUsername(username);
+        this.account = accountDao.findByUserId(signedIn.getId());
+        this.signedIn.getAccount().setBalance(this.account.getBalance());
+
         return this.signedIn;
     }
 
@@ -150,7 +152,6 @@ public class BudgetingService {
      */
     public boolean addEvent(Event e) throws SQLException {
         this.account.addOneEvent(e);
-
         return accountDao.addEvent(e);
 
     }

@@ -47,10 +47,6 @@ public class Account {
         this.balance = balance;
         this.events = new ArrayList();
     }
-//
-//    public int getId() {
-//        return this.id;
-//    }
 
     /**
      *
@@ -112,6 +108,12 @@ public class Account {
      */
     public void addOneEvent(Event e) {
         this.events.add(e);
-        this.balance -= e.getAmount();
+        if (e.getCategory() != 0) {
+            this.balance += e.getAmount() * (-1);
+        } else {
+            this.balance += e.getAmount();
+
+        }
+
     }
 }

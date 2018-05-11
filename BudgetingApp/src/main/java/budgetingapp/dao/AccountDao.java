@@ -64,24 +64,18 @@ public class AccountDao implements Dao<Account, Integer> {
     public Account findByUserId(int id) throws SQLException {
 
         Connection c = database.getConnection();
-        System.out.println("accoundao yhteys otettu");
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM Account WHERE user_id = ?");
         stmt.setInt(1, id);
 
         ResultSet rs = stmt.executeQuery();
-        System.out.println("kysely tehty");
         boolean hasOne = rs.next();
-        System.out.println(hasOne);
         if (!hasOne) {
-            System.out.println("palautetaan null account");
             return null;
         }
         int foundId = rs.getInt("user_id");
         double balance = rs.getDouble("balance");
-        System.out.println("id ja balance: " + foundId + ", " + balance);
         Account a = new Account(foundId, balance);
-        System.out.println(a + "accoundao");
-        //a.addEvents(findAccountEvents(id));
+
         stmt.close();
         c.close();
         rs.close();
@@ -108,7 +102,6 @@ public class AccountDao implements Dao<Account, Integer> {
             e.setCategory(rs.getInt("category"));
             e.setTime(rs.getInt("month"), rs.getInt("year"));
             list.add(e);
-            System.out.println(e.getAmount());
         }
         stmt.close();
         c.close();
@@ -137,10 +130,10 @@ public class AccountDao implements Dao<Account, Integer> {
 
         stmt2.close();
         double eventsAmount = 0;
-        if (!(e.getCategory() == 0)) {
-            eventsAmount = e.getAmount() * (-1);
-        } else {
+        if ((e.getCategory() == 0)) {
             eventsAmount = e.getAmount();
+        } else {
+            eventsAmount = e.getAmount() * (-1);
         }
         Account a = findByUserId(e.getAccountId());
         updateBalance(a, eventsAmount);
@@ -188,6 +181,7 @@ public class AccountDao implements Dao<Account, Integer> {
             stmt.execute();
             stmt.close();
             c.close();
+            deleteEvents(key);
         }
     }
 
@@ -203,7 +197,7 @@ public class AccountDao implements Dao<Account, Integer> {
         double updatedBalance = a.getBalance() + amount;
 
         Connection c = database.getConnection();
-        PreparedStatement stmt2 = c.prepareStatement("UPDATE Account SET balance = ? WHERE user_id= ?");
+        PreparedStatement stmt2 = c.prepareStatement("UPDATE Account SET balance = ? WHERE user_id = ?");
 
         stmt2.setDouble(1, updatedBalance);
         stmt2.setInt(2, a.getUserId());
@@ -212,7 +206,7 @@ public class AccountDao implements Dao<Account, Integer> {
         stmt2.close();
 
         c.close();
-        a.setBalance(a.getBalance() + amount);
+        a.setBalance(updatedBalance);
         return a;
     }
 
@@ -253,7 +247,6 @@ public class AccountDao implements Dao<Account, Integer> {
         }
         double amount = rs.getDouble(1);
 
-        System.out.println("Living: " + amount);
         stmt2.close();
         rs.close();
         c.close();
@@ -459,7 +452,6 @@ public class AccountDao implements Dao<Account, Integer> {
         stmt2.close();
         rs.close();
         c.close();
-        System.out.println("kuukauden eläminen " + amount);
         return amount;
     }
 
@@ -516,7 +508,6 @@ public class AccountDao implements Dao<Account, Integer> {
             return 0;
         }
         double amount = rs.getDouble(1);
-        System.out.println("Goods Monthly: " + amount);
         stmt2.close();
         rs.close();
         c.close();
@@ -547,7 +538,6 @@ public class AccountDao implements Dao<Account, Integer> {
             return 0;
         }
         double amount = rs.getDouble(1);
-        System.out.println("Spare time monthly " + amount);
         stmt2.close();
         rs.close();
         c.close();

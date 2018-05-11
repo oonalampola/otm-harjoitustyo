@@ -28,7 +28,6 @@ public class UserDaoTest {
     Database database;
     User testuser;
 
-    
     public UserDaoTest() {
 
     }
@@ -45,7 +44,7 @@ public class UserDaoTest {
     @Before
     public void setUp() throws ClassNotFoundException {
 
-        File file = new File("db", "budappdata.db");
+        File file = new File("db", "test.db");
         database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         userDao = new UserDao(database);
         testuser = new User("Test User", "testuser");
@@ -59,7 +58,7 @@ public class UserDaoTest {
 
     @Test
     public void deletingUser() throws SQLException {
-        
+
         userDao.save(testuser);
         userDao.delete(testuser.getUsername());
         User user = userDao.findByUsername(testuser.getUsername());

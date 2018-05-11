@@ -10,9 +10,11 @@ import budgetingapp.dao.UserDao;
 import budgetingapp.database.Database;
 import budgetingapp.domain.Account;
 import budgetingapp.domain.BudgetingService;
+import budgetingapp.domain.Event;
 import budgetingapp.domain.User;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,6 +32,7 @@ public class BudgetingServiceTest {
     UserDao userDao;
     AccountDao accountDao;
     Database database;
+    File file;
 
     public BudgetingServiceTest() {
     }
@@ -45,8 +48,9 @@ public class BudgetingServiceTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
-        File file = new File("db", "budappdata.db");
+        file = new File("db", "test.db");
         database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        database.init();
         userDao = new UserDao(database);
         accountDao = new AccountDao(database);
 
@@ -55,40 +59,137 @@ public class BudgetingServiceTest {
     }
 
     @Test
-    public void signInSignsIn() throws SQLException {
+    public void signInSignsInIfUserExists() throws SQLException {
         String name = "Test User";
-        String username = "testuser9999";
+        String username = "testuser";
         budService.createUser(name, username);
         budService.signIn(username);
-        
+
         assertTrue(null != budService.getSignedIn());
+        budService.signIn("invisibleuser");
+        assertFalse(budService.signIn("invisibleuser"));
+
     }
 
     @Test
     public void CreateUserCreatesUserAndAccount() throws SQLException {
         String name = "Test User";
-        String username = "testuser9999";
+
+        String username = "testuser";
         budService.createUser(name, username);
 
-        User u = userDao.findByUsername("testuser9999");
-        Account a = u.getAccount();
+        User u = userDao.findByUsername("testuser");
+        Account a = accountDao.findByUserId(u.getId());
 
-        assertEquals("testuser9999", u.getUsername());
+        assertEquals("testuser", u.getUsername());
         assertTrue(u.getId() == a.getUserId());
 
     }
 
-    @After
-    public void tearDown() throws SQLException {
-        User user = userDao.findByUsername("testuser9999");
-        accountDao.delete(user.getId());
+    @Test
+    public void clearingBalanceSetsBalanceToZero() throws SQLException {
+        String name = "Testing Testing";
+        String username = "testinguser";
 
-        userDao.delete("testuser9999");
+        budService.createUser(name, username);
+        budService.signIn(username);
+
+        Event e = new Event(200, budService.getSignedIn().getId());
+        assertTrue(budService.addEvent(e));
+        User u = userDao.findByUsername("testinguser");
+
+        budService.clearBalance();
+        assertTrue(0 == budService.account.getBalance());
+        Account a = accountDao.findByUserId(u.getId());
+
+        assertTrue(0 == a.getBalance());
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void updatingUserInfo() throws SQLException {
+        String name = "Testing User";
+        String username = "testuser2";
+
+        budService.createUser(name, username);
+
+        budService.signIn("testuser2");
+
+        User u = budService.getSignedIn();
+        Account a = u.getAccount();
+        Event e = new Event(200, budService.getSignedIn().getId());
+        budService.addEvent(e);
+        u = budService.updateUserInfo("testuser2");
+
+        assertTrue(200.0 == u.getAccountBalance());
+
+    }
+
+    @Test
+    public void addEventAdds() throws SQLException {
+        String name = "Testing User";
+        String username = "testuser2";
+
+        budService.createUser(name, username);
+        budService.signIn("testuser2");
+        Event e = new Event(500, budService.getSignedIn().getId());
+        budService.addEvent(e);
+
+        assertTrue(budService.getEvents(budService.getSignedIn().getId()).get(0) != null);
+
+    }
+
+    @Test
+    public void getCategroies() throws SQLException {
+        String name = "Testing User";
+        String username = "testuser2";
+
+        budService.createUser(name, username);
+        budService.signIn("testuser2");
+        Event e = new Event(500, budService.getSignedIn().getId());
+        Event e2 = new Event(200, budService.getSignedIn().getId());
+        e.setCategory(1);
+        e2.setCategory(2);
+
+        budService.addEvent(e);
+        budService.addEvent(e2);
+        Account a = budService.account;
+        List<Double> list = budService.getCategoryAmounts(a);
+
+        assertTrue(500 == list.get(0));
+        assertTrue(200 == list.get(1));
+
+    }
+
+    @Test
+    public void getMonthlyCategories() throws SQLException {
+        String name = "Testing User";
+        String username = "testuser2";
+
+        budService.createUser(name, username);
+        budService.signIn("testuser2");
+        Event e = new Event(500, budService.getSignedIn().getId());
+        Event e2 = new Event(200, budService.getSignedIn().getId());
+        e.setCategory(1);
+        e2.setCategory(2);
+        e.setTime(5, 2018);
+        e2.setTime(4, 2018);
+        budService.addEvent(e);
+        budService.addEvent(e2);
+
+        Account a = budService.account;
+        List<Double> list = budService.getMonthlyCategoryAmounts(a.getUserId(), 4, 2018);
+
+        assertTrue(200 == list.get(1));
+        assertTrue(list.get(0) == 0);
+    }
+
+    @After
+    public void tearDown() throws SQLException {
+        budService.signOut();
+
+        userDao.delete("testuser2");
+        userDao.delete("testinguser");
+
+    }
+
 }

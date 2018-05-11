@@ -72,7 +72,7 @@ public class BudgetingUi extends Application {
         File file = new File("db", "budappdata.db");
 
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-
+        database.init();
         UserDao userDao = new UserDao(database);
         AccountDao accountDao = new AccountDao(database);
 
@@ -91,7 +91,6 @@ public class BudgetingUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //signedInScene
 
         HBox menuPane = new HBox(10);
         HBox bottomMenuPane = new HBox(10);
@@ -99,7 +98,6 @@ public class BudgetingUi extends Application {
         Button logoutButton = new Button("Sign out");
         Button newEventBut = new Button("Add new event");
 
-        //Toimivat, mutta eivät vielä päivitä suoraan
         Button deleteButton = new Button("Delete all events");
         Button clearBalance = new Button("Clear balance");
 
@@ -115,8 +113,9 @@ public class BudgetingUi extends Application {
         deleteButton.setOnAction(e -> {
             try {
                 budService.deleteEvents(signedInUser.getId());
-                pieChart = createChart();
                 eventsAndPiePane.getChildren().remove(pieChart);
+
+                pieChart = createChart();
                 eventsAndPiePane.add(pieChart, 0, 0);
 
                 createEventScroller();
@@ -248,25 +247,14 @@ public class BudgetingUi extends Application {
                     eventsAndPiePane.add(pieChart, 0, 0);
                     eventsAndPiePane.add(eventScroller, 1, 0);
 
-//Events 
+                    //Events 
                     listView.setPrefSize(350, 250);
                     listView.setEditable(true);
 
                     signedInUser = budService.updateUserInfo(username);
                     Account a = signedInUser.getAccount();
                     eventsList = budService.getEvents(signedInUser.getId());
-                    System.out.println(eventsList);
 
-//                    double amount;
-//                    Event ev;
-//                    for (int i = 0; i < eventsList.size(); i++) {
-//                        Event event = eventsList.get(i);
-//                        items.add(createEventElement(event));
-//                    }
-//                    listView.getItems().clear();
-//                    listView.setItems(items);
-//
-//                    eventScroller.setContent(listView);
                 } else {
                     signInMessage.setText("Username not found");
                     signInMessage.setTextFill(Color.RED);
@@ -323,7 +311,6 @@ public class BudgetingUi extends Application {
                     primaryStage.setTitle("BudgetingApp");
 
                     primaryStage.setScene(gettingStarted);
-                    System.out.println("Käyttäjä luotu!!!");
                 } else {
                     creationMessage.setText("Username has to be unique");
 
@@ -392,20 +379,11 @@ public class BudgetingUi extends Application {
 
         ComboBox months = new ComboBox(monthOptions);
 
-//        ObservableList<String> dayOptions
-//                = FXCollections.observableArrayList();
-//        for (int i = 1; i < 32; i++) {
-//            dayOptions.add(i + "");
-//        }
-//
-//        ComboBox days = new ComboBox(dayOptions);
         years.setEditable(true);
         months.setEditable(true);
-//        days.setEditable(true);
 
         years.setPromptText("yyyy");
         months.setPromptText("mm");
-//        days.setPromptText("dd");
 
         DateOptions.getChildren().addAll(months, years);
 
@@ -424,9 +402,7 @@ public class BudgetingUi extends Application {
             String category = categoryOptions.getValue().toString();
             int year = Integer.parseInt(years.getValue().toString());
             int month = Integer.parseInt(months.getValue().toString());
-//            int day = Integer.parseInt(days.getValue().toString());
 
-            System.out.println("Kategoriaksi valittu: " + category);
             int categoryCode = guiHelper.checkCategory(category);
 
             if (amount == 0) {
@@ -434,9 +410,8 @@ public class BudgetingUi extends Application {
                 addingMessage.setTextFill(Color.RED);
                 amountTextField.clear();
             }
-//            Date date = new Date(year, month, day);
 
-            Event event = new Event(amount, id);
+            Event event = new Event(amount, id); 
             event.setTime(month, year);
             event.setCategory(categoryCode);
 
@@ -446,15 +421,20 @@ public class BudgetingUi extends Application {
                     accountBalance.setText("Balance: " + signedInUser.getAccountBalance());
                     primaryStage.setTitle("BudgetingApp");
                     createEventScroller();
-                    pieChart = null;
+
                     eventsAndPiePane.getChildren().remove(pieChart);
+                    pieChart = null;
                     pieChart = createChart();
+
                     eventsAndPiePane.add(pieChart, 0, 0);
                     primaryStage.setScene(signedIn);
                 }
 
             } catch (SQLException ex) {
+                addingMessage.setText("Check values");
+                addingMessage.setTextFill(Color.RED);
                 Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
 
         });
@@ -469,8 +449,6 @@ public class BudgetingUi extends Application {
 
     }
 
-//    public PieChart updateChart(){
-//    }
     public void createMonthlyScroller(int id, String month, int year) throws SQLException {
         int monthNum = guiHelper.checkMonth(month);
         List<Event> list = budService.getMonthlyEvents(id, monthNum, year);
@@ -480,10 +458,7 @@ public class BudgetingUi extends Application {
         listView.setEditable(true);
 
         Account a = signedInUser.getAccount();
-        System.out.println(eventsList);
 
-        double amount;
-        Event ev;
         for (int i = 0; i < list.size(); i++) {
             Event event = list.get(i);
             items.add(createEventElement(event));
@@ -501,10 +476,7 @@ public class BudgetingUi extends Application {
         signedInUser = budService.updateUserInfo(signedInUser.getUsername());
         Account a = signedInUser.getAccount();
         eventsList = budService.getEvents(signedInUser.getId());
-        System.out.println(eventsList);
 
-        double amount;
-        Event ev;
         for (int i = 0; i < eventsList.size(); i++) {
             Event event = eventsList.get(i);
             items.add(createEventElement(event));
@@ -515,7 +487,6 @@ public class BudgetingUi extends Application {
     }
 
     public PieChart createMonthlyChart(int id, String month, int year) throws SQLException {
-
         PieChart empty = new PieChart();
 
         if (signedInUser == null) {
@@ -523,9 +494,7 @@ public class BudgetingUi extends Application {
         }
         int monthNum = guiHelper.checkMonth(month);
 
-        System.out.println("id, kuukausi ja vuosi: " + id + " " + month + " " + monthNum + " " + year);
         List<Double> list = budService.getMonthlyCategoryAmounts(signedInUser.getId(), monthNum, year);
-        System.out.println(list + "kuukauden tapahtumat");
         double living = list.get(0);
         double food = list.get(1);
         double goods = list.get(2);
@@ -539,7 +508,6 @@ public class BudgetingUi extends Application {
 
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList();
-
 
         if (living > 0) {
             Data data = new PieChart.Data("Living, " + living + " €", living);
@@ -557,14 +525,15 @@ public class BudgetingUi extends Application {
             Data data = new PieChart.Data("Spare time, " + spareTime + " €", spareTime);
             pieChartData.add(data);
         }
-        final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Consumption in " + month + " " + year);
+        pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Consumption in " + month + " " + year);
 
-        return chart;
+        return pieChart;
 
     }
 
     public PieChart createChart() throws SQLException {
+
         PieChart empty = new PieChart();
         eventsAndPiePane.getChildren().remove(pieChart);
         if (signedInUser == null) {
@@ -606,10 +575,10 @@ public class BudgetingUi extends Application {
 
         }
 
-        final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Consumption");
+        pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Consumption");
 
-        return chart;
+        return pieChart;
 
     }
 

@@ -51,7 +51,6 @@ public class UserDao implements Dao<User, Integer> {
             stmt.close();
             c.close();
             rs.close();
-            System.out.println("palautetaan null");
             return null;
         }
 
@@ -102,13 +101,17 @@ public class UserDao implements Dao<User, Integer> {
      * @throws SQLException
      */
     public void delete(String username) throws SQLException {
-        if (findByUsername(username) != null) {
+        User u = findByUsername(username);
+        if (u != null) {
             Connection c = database.getConnection();
             PreparedStatement stmt = c.prepareStatement("DELETE FROM User WHERE username=?");
             stmt.setString(1, username);
             stmt.execute();
             stmt.close();
             c.close();
+            accountDao.delete(u.getId());
+
         }
+
     }
 }

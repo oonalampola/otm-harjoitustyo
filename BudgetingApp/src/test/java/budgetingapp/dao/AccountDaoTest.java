@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author iskä
+ * @author oona
  */
 public class AccountDaoTest {
 
@@ -57,11 +57,6 @@ public class AccountDaoTest {
         accountDao.delete(0);
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     @Test
     public void deletingAccount() throws SQLException {
 
@@ -159,8 +154,7 @@ public class AccountDaoTest {
         accountDao.clearBalance(testAccount);
         testAccount = accountDao.findByUserId(0);
         assertTrue(0 == testAccount.getBalance());
-        
-        
+
     }
 
 }

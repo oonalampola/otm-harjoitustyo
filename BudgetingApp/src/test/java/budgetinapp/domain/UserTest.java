@@ -45,23 +45,18 @@ public class UserTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
-    public void hello() {}
-    
-    
-    @Test
-    public void createdUserExists(){
+    public void createdUserExists() {
         assertTrue(testuser != null);
     }
+
     @Test
     public void constructorSetsName() {
-       assertEquals("Test User", testuser.getName());
+        assertEquals("Test User", testuser.getName());
     }
+
     @Test
-    public void contructorsSetsUsername(){
+    public void contructorsSetsUsername() {
         assertEquals("testuser", testuser.getUsername());
     }
 }

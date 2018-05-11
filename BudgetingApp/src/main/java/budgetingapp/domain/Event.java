@@ -36,21 +36,6 @@ public class Event {
     }
 
     /**
-     * Luo Event-olion (varmaankin turha)
-     *
-     * @param id
-     * @param amount
-     * @param accountId
-     */
-    public Event(int id, double amount, int accountId) {
-        this.id = id;
-        this.amount = amount;
-        this.category = 0;
-        this.accountId = accountId;
-
-    }
-
-    /**
      * Ajan asettaminen
      *
      * @param month kuukausi
@@ -68,20 +53,6 @@ public class Event {
      */
     public void setCategory(int category) {
         this.category = category;
-    }
-
-    /**
-     * Id:n asettaminen
-     *
-     * @param id id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return this.id;
-
     }
 
     /**

@@ -24,6 +24,7 @@ public class User {
      * @param username käyttäjänimi
      */
     public User(String name, String username) {
+        this.id = 0;
         this.name = name;
         this.username = username;
         this.account = null;
@@ -45,49 +46,12 @@ public class User {
     }
 
     /**
-     * Tyhjän User-olion luominen
-     */
-    public User() {
-        this.name = null;
-        this.id = 0;
-        this.username = null;
-        this.account = null;
-    }
-
-    /**
-     * Nimen asettaminen
-     *
-     * @param name nimi
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Käyttäjänimen asettaminen
-     *
-     * @param username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
      * Tilin liittäminen
      *
      * @param a Account-olio
      */
     public void setAccount(Account a) {
         this.account = a;
-    }
-
-    /**
-     * Id:n asettaminen
-     *
-     * @param id käyttäjään liittyvä id
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**

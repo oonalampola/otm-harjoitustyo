@@ -18,34 +18,45 @@ import static org.junit.Assert.*;
  * @author iskä
  */
 public class EventTest {
+
     Event event;
+
     public EventTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
     @Before
     public void setUp() {
-        event = new Event(0, 300, 0);
+        event = new Event(300, 0);
     }
+
     @Test
-    public void constructorCreatesEvent(){
+    public void constructorCreatesEvent() {
         assertTrue(null != event);
     }
-    
+
+    @Test
+    public void settingTimeSetsTime() {
+
+        event.setTime(5, 2018);
+
+        assertEquals(5, event.getMonth());
+        assertEquals(2018, event.getYear());
+    }
+
+    @Test
+    public void categoryIsSetted() {
+
+        event.setCategory(2);
+        assertTrue(2 == event.getCategory());
+    }
+
+    @Test
+    public void amountIsCorrect() {
+        assertTrue(300 == event.getAmount());
+    }
+
     @After
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
