@@ -100,6 +100,36 @@ SELECT * FROM Event WHERE account_id=1;
 
 <h2>Päätoiminnallisuudet</h2>
 
+<h3>Uuden käyttäjän luominen</h3>
+
+Nappia _Create new user_ paninamalla sovellus etenee seuraavasti:
+
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/creating%20new%20user.png">
+
+Käyttöliittymä kutsuu _BudgetingServicen_ metodia _createUser()_, joka tarkistaa userDaon avulla, onko käyttäjää olemassa. Mikäli takaisin palautuu _null_-viite, kutsuu _BudgetingService_ _userDao:ta_ uudelleen tällä kertaa _save()_-metodia. Käyttäjän luomisen jälkeen _createUser()_ kutsuu vielä _userDao:n_ _findByUsername()_, jotta _User_-olio saisi oman id:n. Tällä id:llä luodaan _AccountDao:n_ avulla käyttäjätili ja palautetaan lopulta käyttöliittymälle _true_.
+
 <h3>Käyttäjän kirjautuminen</h3>
 
+Sisäänkirjautumisen aikana sovellus etenee seuraavasti:
+
 <img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/sekvenssikaavioSignIn.png">
+
+Käyttöliittymä kutsuu _BudgetingService:n_ metodia _signIn()_, jolloin _userDao:n_ avulla tarkistetaan, onko käyttäjää olemassa. Jos ei, palautetaan false. Muusssa tapauksessa _BudgetingService_ asettaa löydetyn _User_-olion oliomuuttujaansa _signedInUser_, sekä tähän liittyvän _AccountDao_-luokan avulla löydetyn tilin _account_-muuttujaansa ja palauttaa käyttöliittymälle true.
+
+<h3>Uuden tapahtuman lisääminen</h3>
+
+Uuden tapahtuman lisääminen etenee seuraavasti:
+
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/adding%20new%20event.png">
+
+Käyttöliittymä luo _Event_-olion, jonka antaa parametriksi _BudgetingServicelle_ kutsuessaan sen metodia _addEvent()_. Metodi _addEvent()_ kutsuu _AccountDao:n_ samannimistä metodia, joka lisää tapahtuman tietokantaan ja päivittää tilin saldon.
+
+<h3>Muut toiminnallisuudet</h3>
+
+Toiminnallisuudet, kuten tapahtumien poistaminen ja saldon nollaaminen tapahtuvat samalla kaavalla, kuin yllä olevat toiminnallisuudet. Käyttöliittymä kutsuu _BudgetingServicen_ metodeita, jotka puolestaan ohjaavat kutsut _Dao_-luokille.
+
+<h2>Ohjelman rakenteeseen jääneet heikkoudet</h2>
+
+Käyttöliittymän toteuttavasta koodista tuli todella pitkä ja joiltakin osilta jopa sekava. Ohjelma pyörii tällä hetkellä, mutta jatkokehityksen kannalta paljon selkeämmäksi alusta asti luotu käyttöliittymän koodi helpottaisi sen muokkaamista. _GuiHelper_-luokka luotiin tätä tarkoitusta ajatellen, mutta toteutus jäi vajaaksi.
+
+Dao-luokkien toteuttama rakapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä Account- että Event-taulujen hallintaa. 
