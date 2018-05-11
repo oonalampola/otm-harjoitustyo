@@ -38,16 +38,16 @@ Kirjautumisen jälkeen siirrytään näkymään, jossa vasemmalle muodostuu ympy
 ja oikealle lista kaikista lisätyistä tapahtumista.
 Mikäli käyttäjä on uusi eikä tapahtumia ole vielä lisätty, on näkymä seuraavanlainen:
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/kirjautunutUusi.PNG" width="600
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/kirjautunutUusi.PNG" width="600">
 
 Uuden tapahtuman pääsee lisäämään yläpalkin painikkeella _Add new event_. Näkymä vaihtuu tapahtumanluomisnäkymäksi. 
 Kaikissa tekstikentissä tulee olla oikeanlaista tietoa, jotta tapahtuman lisääminen onnistuu.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusitapahtuma.PNG" width="300"
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusitapahtuma.PNG" width="300">
 
 Kun tapahtumia lisätään, muodostuu niistä ympyrädiagrammi sekä lista.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkomallikasTapahtumia.PNG" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkomallikasTapahtumia.PNG" width="600">
 
 Valitsemalla alapalkista ajanjakson, saa näkyville tietyn kuukauden tapahtumat.
 
