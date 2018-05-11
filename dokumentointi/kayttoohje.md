@@ -18,7 +18,7 @@ java -jar budgetingapp.jar
 
 Sovellus käynnistyy kirjautumisnäkymään:
 
-<"img src=https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Kirjautumisnakyma.PNG" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Kirjautumisnakyma.PNG" width="400">
 
 Sovellukseen kirjaudutaan kirjoittamalla syötekenttään käyttäjätunnus ja painamalla _Sign in_. Käyttäjätunnuksen tulee olla aiemmin luotu.
 
@@ -28,7 +28,7 @@ Aloitusnäkymästä pääsee luomaan uuden käyttäjän klikkaamalla _Create new
 
 Kirjoittamalla kenttiin tarvittavat tiedot, voi uuden käyttäjän luoda painamalla _Create new user_.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusikayttisnakyma.PNG" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusikayttisnakyma.PNG" width="350">
 
 Jos luominen onnistuu, palaa ohjelma kirjautumisnäkymään ja luodulla käyttäjällä voi kirjautua sisään.
 
@@ -38,7 +38,7 @@ Kirjautumisen jälkeen siirrytään näkymään, jossa vasemmalle muodostuu ympy
 ja oikealle lista kaikista lisätyistä tapahtumista.
 Mikäli käyttäjä on uusi eikä tapahtumia ole vielä lisätty, on näkymä seuraavanlainen:
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/kirjautunutUusi.PNG" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/kirjautunutUusi.PNG" width="600
 
 Uuden tapahtuman pääsee lisäämään yläpalkin painikkeella _Add new event_. Näkymä vaihtuu tapahtumanluomisnäkymäksi. 
 Kaikissa tekstikentissä tulee olla oikeanlaista tietoa, jotta tapahtuman lisääminen onnistuu.
@@ -47,12 +47,11 @@ Kaikissa tekstikentissä tulee olla oikeanlaista tietoa, jotta tapahtuman lisä�
 
 Kun tapahtumia lisätään, muodostuu niistä ympyrädiagrammi sekä lista.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkomallikasTapahtumia.PNG
-" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkomallikasTapahtumia.PNG" width="400">
 
 Valitsemalla alapalkista ajanjakson, saa näkyville tietyn kuukauden tapahtumat.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkoApril.PNG" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/mikkoApril.PNG" width="600">
 
 ## Muita toimintoja
 
