@@ -28,7 +28,7 @@ Aloitusnäkymästä pääsee luomaan uuden käyttäjän klikkaamalla _Create new
 
 Kirjoittamalla kenttiin tarvittavat tiedot, voi uuden käyttäjän luoda painamalla _Create new user_.
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusikayttisnakyma.PNG" width="350">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/Uusikayttisnakyma.PNG" width="400">
 
 Jos luominen onnistuu, palaa ohjelma kirjautumisnäkymään ja luodulla käyttäjällä voi kirjautua sisään.
 
@@ -60,7 +60,7 @@ Valitsemalla alapalkista ajanjakson, saa näkyville tietyn kuukauden tapahtumat.
   - _Clear balance_ nollaa saldon
   - _Sign out_ kirjaa käyttäjän ulos ja palaa sisäänkirjautumisnäkymään
   
- -Alapalkin painikkeet
+ - Alapalkin painikkeet
   - _Show_ näyttää valitun ajankohdan tapahtumat
   - _Show all_ näyttää kaikki käyttäjätilin tapahtumat
 
