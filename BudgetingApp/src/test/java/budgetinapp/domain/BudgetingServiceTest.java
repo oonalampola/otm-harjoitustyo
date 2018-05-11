@@ -48,8 +48,8 @@ public class BudgetingServiceTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
-        file = new File("db", "test.db");
-        database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        File file = new File("test.db");
+        database = new Database("jdbc:sqlite:test.db");
         database.init();
         userDao = new UserDao(database);
         accountDao = new AccountDao(database);
@@ -121,7 +121,8 @@ public class BudgetingServiceTest {
         u = budService.updateUserInfo("testuser2");
 
         assertTrue(200.0 == u.getAccountBalance());
-
+        userDao.delete(u.getUsername());
+        accountDao.delete(u.getId());
     }
 
     @Test
@@ -185,6 +186,8 @@ public class BudgetingServiceTest {
 
     @After
     public void tearDown() throws SQLException {
+        File file = new File("test.db");
+        file.delete();
         budService.signOut();
 
         userDao.delete("testuser2");

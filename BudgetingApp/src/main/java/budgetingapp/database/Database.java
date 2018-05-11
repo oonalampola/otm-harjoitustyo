@@ -45,7 +45,6 @@ public class Database {
     /**
      * Luo tietokannan taulut tarvittaessa
      */
-
     public void init() {
         List<String> tables = tables();
 

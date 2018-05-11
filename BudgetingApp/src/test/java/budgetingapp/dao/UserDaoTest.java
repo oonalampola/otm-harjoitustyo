@@ -44,8 +44,9 @@ public class UserDaoTest {
     @Before
     public void setUp() throws ClassNotFoundException {
 
-        File file = new File("db", "test.db");
-        database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        File file = new File("test.db");
+        file.delete();
+        database = new Database("jdbc:sqlite:test.db");
         userDao = new UserDao(database);
         testuser = new User("Test User", "testuser");
 
@@ -54,6 +55,8 @@ public class UserDaoTest {
     @After
     public void tearDown() throws SQLException {
         userDao.delete("testuser");
+        File file = new File("test.db");
+        file.delete();
     }
 
     @Test

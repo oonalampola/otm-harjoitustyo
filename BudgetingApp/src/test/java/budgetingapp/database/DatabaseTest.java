@@ -36,11 +36,12 @@ public class DatabaseTest {
     Database database;
 
     public DatabaseTest() throws ClassNotFoundException {
-        this.database = new Database("jdbc:sqlite:test.db");
+        this.database = null;
     }
 
-    void beforeEach() throws ClassNotFoundException, SQLException {
-        File file = new File("db", "test.db");
+    @Before
+    public void setUp() throws ClassNotFoundException, SQLException {
+        File file = new File("test.db");
         file.delete();
 
         this.database = new Database("jdbc:sqlite:test.db");
@@ -53,12 +54,34 @@ public class DatabaseTest {
         c.close();
     }
 
+    @After
+    public void tearDown() throws SQLException {
+        Connection c = database.getConnection();
+        PreparedStatement stmt = c.prepareStatement("DELETE FROM User WHERE 1=1");
+        stmt.execute();
+        stmt.close();
+
+        PreparedStatement stmt2 = c.prepareStatement("DELETE FROM User WHERE 1=1");
+        stmt2.execute();
+        stmt2.close();
+
+        PreparedStatement stmt3 = c.prepareStatement("DELETE FROM User WHERE 1=1");
+        stmt3.execute();
+        stmt3.close();
+
+        c.close();
+
+        File file = new File("test.db");
+        file.delete();
+
+    }
+
     public void initializeDatabase(Connection c) throws SQLException {
 
         ArrayList<String> list2 = new ArrayList<>();
 
-        list2.add("INSERT INTO User (id, name, username) VALUES (1, 'Test user', 'testuser')");
-        list2.add("INSERT INTO Account (user_id, balance) VALUES (1, 0)");
+        list2.add("INSERT INTO User (name, username) VALUES ('Test user', 'testuser')");
+        list2.add("INSERT INTO Account (balance) VALUES (0)");
         list2.add("INSERT INTO Event (amount, month, year, category, account_id) VALUES (500, 1, 2018, 1, 1)");
 
         for (int i = 0; i < list2.size(); i++) {

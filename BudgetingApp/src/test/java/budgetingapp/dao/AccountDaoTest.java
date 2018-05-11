@@ -43,8 +43,8 @@ public class AccountDaoTest {
     @Before
     public void setUp() throws ClassNotFoundException, SQLException {
 
-        File file = new File("db", "test.db");
-        database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        File file = new File("test.db");
+        database = new Database("jdbc:sqlite:test.db");
         database.init();
         accountDao = new AccountDao(database);
         accountDao.delete(0);
@@ -55,6 +55,8 @@ public class AccountDaoTest {
     @After
     public void tearDown() throws SQLException {
         accountDao.delete(0);
+        File file = new File("test.db");
+        file.delete();
     }
 
     @Test
