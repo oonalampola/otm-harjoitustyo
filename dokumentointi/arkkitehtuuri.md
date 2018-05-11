@@ -27,7 +27,7 @@ Käyttöliittymä sisältää metodeita, joiden avulla luodaan sisältö graafis
 
 Sovelluksen logiikkamallin muodostavat luokat User, Account ja Event
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/LUOKAT.png" width="350">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/LUOKAT.png" width="450">
 
 Sovelluksen toiminnallisuudesta vastaa yksi BudgetingService-olio. Se tarjoaa metodeja käyttäjien, tilien ja tapahtumien hallintaan. Metodeja ovat mm.
 
@@ -40,7 +40,7 @@ _BudgetingService_ käyttää käyttäjät ja muut tiedot säilövää tietokant
 
 Sovelluksen osien suhteita kuvaava luokka/pakkauskaavio:
 
-<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/pakkausluokkakaavo.png" width="400">
+<img src="https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kuvat/pakkausluokkakaavo.png" width="500">
 
 <h2>Tietojen pysyväistallennus</h2>
 
