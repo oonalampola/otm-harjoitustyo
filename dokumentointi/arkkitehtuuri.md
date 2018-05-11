@@ -131,6 +131,10 @@ Toiminnallisuudet, kuten tapahtumien poistaminen ja saldon nollaaminen tapahtuva
 
 <h2>Ohjelman rakenteeseen jääneet heikkoudet</h2>
 
-Käyttöliittymän toteuttavasta koodista tuli todella pitkä ja joiltakin osilta jopa sekava. Ohjelma pyörii tällä hetkellä, mutta jatkokehityksen kannalta paljon selkeämmäksi alusta asti luotu käyttöliittymän koodi helpottaisi sen muokkaamista. _GuiHelper_-luokka luotiin tätä tarkoitusta ajatellen, mutta toteutus jäi vajaaksi.
+<h3>Käyttöliittymä</h3>
+
+Käyttöliittymän toteuttavasta koodista tuli todella pitkä ja joiltakin osilta jopa sekava. Ohjelma pyörii tällä hetkellä, mutta jatkokehityksen kannalta paljon selkeämmäksi alusta asti luotu käyttöliittymän koodi helpottaisi sen muokkaamista. _GuiHelper_-luokka luotiin tätä tarkoitusta ajatellen, mutta toteutus jäi vajaaksi. 
+
+<h3>DAO</h3>
 
 _Dao_-luokkien toteuttama rajapinta jäi lähes turhaksi, koska sen metodeita ei ollut alunperin suunniteltu palvelemaan luokkien tarpeita. Lisäksi AccountDaon olisi jakaa kahdeksi erilliseksi luokaksi, koska tällä hetkellä se hoitaa sekä _Account_- että _Event_-taulujen hallintaa. 
