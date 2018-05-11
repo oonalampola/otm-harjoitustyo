@@ -4,7 +4,7 @@ Lataa tiedosto [budgetingapp.jar](url)
 
 ## Konfigurointi
 
-
+Ohjelma luo ajettaessa automaattisesti tarvittavan tietokannan tauluineen.
 
 ## Ohjelman käynnistäminen
 
