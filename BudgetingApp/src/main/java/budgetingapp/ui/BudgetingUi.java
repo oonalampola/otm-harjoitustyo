@@ -431,8 +431,7 @@ public class BudgetingUi extends Application {
                 }
 
             } catch (SQLException ex) {
-                addingMessage.setText("Check values");
-                addingMessage.setTextFill(Color.RED);
+      
                 Logger.getLogger(BudgetingUi.class.getName()).log(Level.SEVERE, null, ex);
                 
             }
