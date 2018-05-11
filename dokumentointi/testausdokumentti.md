@@ -1,9 +1,6 @@
 # Testausdokumentti
 
 
-## Yksikkötestaus
-
-
 ### Sovelluslogiikka
 
 Pakkauksen [bidgetingapp.domain](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain) luokkia testaavat [UserTest](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain/UserTest.java), [AccountTest](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain/AccountTest.java),
