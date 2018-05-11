@@ -12,9 +12,10 @@
 
 <h2>Releaset</h2>
 
-[Viikko 5](https://github.com/oonalampola/otm-harjoitustyo/releases)
+[Viikko 5](https://github.com/oonalampola/otm-harjoitustyo/releases/tag/viikko5)
+
 [Loppupalautus](]https://github.com/oonalampola/otm-harjoitustyo/releases/tag/loppupalautus)
-https://github.com/oonalampola/otm-harjoitustyo/releases
+
 <h2>Komentorivitoiminnot</h2>
 
 <h3>Testaus</h3>
