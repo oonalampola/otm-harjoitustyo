@@ -69,9 +69,8 @@ public class BudgetingUi extends Application {
     @Override
     public void init() throws Exception {
 
-        File file = new File("db", "budappdata.db");
-
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+   //     File file = new File("db", "budappdata.db");
+        Database database = new Database("jdbc:sqlite:budappdata.db");
         database.init();
         UserDao userDao = new UserDao(database);
         AccountDao accountDao = new AccountDao(database);
