@@ -3,6 +3,7 @@
 
 ## Yksikkötestaus
 
+
 ### Sovelluslogiikka
 
 Pakkauksen [bidgetingapp.domain](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain) luokkia testaavat [UserTest](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain/UserTest.java), [AccountTest](https://github.com/oonalampola/otm-harjoitustyo/tree/master/BudgetingApp/src/test/java/budgetinapp/domain/AccountTest.java),
@@ -23,10 +24,6 @@ Database-luokan kykyä luoda tietokanta testataan omassa testausluokassaan. Test
 Käyttöliittymäluokkaa lukuun ottamatta sovelluksen testien rivikattavuus on 93% ja haarautumakattavuus 71%.
 <img src="https://raw.githubusercontent.com/mluukkai/OtmTodoApp/master/dokumentaatio/kuvat/t-1.png" width="800">
 
-
-## Järjestelmätestaus
-
-Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
 
 ### Asennus ja konfigurointi
 
