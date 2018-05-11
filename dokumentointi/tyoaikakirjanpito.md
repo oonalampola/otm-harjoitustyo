@@ -19,5 +19,6 @@
 7.5. | 3 | Testauksen jatkamista
 9.5. | 1 | JavaDoc aloitettu
 10.5. | 6 | JavaDoc toteutettu kokonaan ja testaaminen jatkuu
-**yht.** | 67 |
+11.5. | 10 | Viimeisiä fiksailuja
+**yht.** | 77 |
 
