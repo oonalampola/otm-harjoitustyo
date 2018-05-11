@@ -1,6 +1,9 @@
 
 <h1>BudgetingApp</h1>
 
+Yksinkertainen budjetointisovellus, johon voi luoda käyttäjätunnuksen ja lisätä tapahtumia.
+
+Sovellus on luotu Ohejlmistotekniikan menetelmät -kurssin harjoitustyönä keväällä 2018.
 
 <h2>Dokumentaatio</h2>
 
@@ -9,6 +12,12 @@
 [Työaikakirjanpito](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
 [Arkkitehtuurikuvaus](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
+
+[Käyttöohje](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
+
+[Testausdokumentti](https://github.com/oonalampola/otm-harjoitustyo/blob/master/dokumentointi/testausdokumentti.md)
+
+
 
 <h2>Releaset</h2>
 
