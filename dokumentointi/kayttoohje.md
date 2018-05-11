@@ -1,6 +1,6 @@
 # Käyttöohje
 
-Lataa tiedosto [budgetingapp.jar](url)
+Lataa tiedosto [BudgetingApp.jar](https://github.com/oonalampola/otm-harjoitustyo/releases/tag/loppupalautus)
 
 ## Konfigurointi
 
