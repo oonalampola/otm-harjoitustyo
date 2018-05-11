@@ -60,7 +60,7 @@ Valitsemalla alapalkista ajanjakson, saa näkyville tietyn kuukauden tapahtumat.
   - _Clear balance_ nollaa saldon
   - _Sign out_ kirjaa käyttäjän ulos ja palaa sisäänkirjautumisnäkymään
   
- - Alapalkin painikkeet
+- Alapalkin painikkeet
   - _Show_ näyttää valitun ajankohdan tapahtumat
   - _Show all_ näyttää kaikki käyttäjätilin tapahtumat
 
